@@ -1,0 +1,224 @@
+{
+  "couple": {
+    "bride": "Petra",
+    "groom": "Patrik",
+    "hashtag": "#Svadba2026"
+  },
+  "wedding": {
+    "date": "2026-10-16T15:00:00",
+    "dateDisplay": "16. október 2026",
+    "timeDisplay": "15:00",
+    "venue": {
+      "name": "Hotel Vršatec",
+      "address": "Vršatské Podhradie 24, 018 52 Pruské",
+      "url": "https://www.hotelvrsatec.sk/",
+      "wazeUrl": "https://waze.com/ul?q=Hotel%20Vr%C5%A1atec%20Vr%C5%A1atsk%C3%A9%20Podhradie&navigate=yes",
+      "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=Hotel+Vr%C5%A1atec+Vr%C5%A1atsk%C3%A9+Podhradie",
+      "description": "Romantický hotel ukrytý v náručí Bielych Karpát, priamo pod ruinami hradu Vršatec. Miesto, kde sa stretáva príroda s históriou."
+    }
+  },
+  "accommodation": {
+    "intro": "Pre vašu pohodu sme rezervovali izby priamo v Hotel Vršatec. Ak máte záujem o ubytovanie, napíšte nám v RSVP formulári.",
+    "options": [
+      {
+        "name": "Hotel Vršatec",
+        "description": "Priamo v mieste konania svadby. Izby pre svadobčanov rezervujeme my - uveďte to v RSVP.",
+        "price": "od 45 € / osoba / noc",
+        "url": "https://www.hotelvrsatec.sk/"
+      },
+      {
+        "name": "Penzióny v okolí",
+        "description": "Pre tých, ktorí chcú viac súkromia - v okolí Pruského a Vršatského Podhradia je niekoľko menších penziónov.",
+        "price": "individuálne",
+        "url": "https://www.google.com/search?q=penzi%C3%B3n+Vr%C5%A1atsk%C3%A9+Podhradie"
+      }
+    ]
+  },
+  "story": {
+    "intro": "Náš spoločný príbeh sa píše už roky. Tu sú niektoré kapitoly...",
+    "chapters": [
+      {
+        "title": "Ako sme sa stretli",
+        "text": "Doplňte váš príbeh - kde a kedy ste sa stretli, čo vás na sebe očarilo.",
+        "image": "assets/photos/story-1.jpg"
+      },
+      {
+        "title": "Naše cesty",
+        "text": "Spolu milujeme cestovanie - každé miesto, ktoré spolu navštívime, je ďalšia spomienka, ktorú si nesieme.",
+        "image": "assets/photos/story-2.jpg"
+      },
+      {
+        "title": "Merlin sa pridal",
+        "text": "Náš štvornohý parťák Merlin nám rozžiaril život. Spolu sme rodina.",
+        "image": "assets/photos/merlin.jpg"
+      },
+      {
+        "title": "Always",
+        "text": "Ako Lily a Severus - 'Always'. Naša láska je ako ten strom z pozvánky: korene, ktoré rastú hlbšie každým rokom.",
+        "image": "assets/photos/always.jpg"
+      }
+    ]
+  },
+  "rsvp": {
+    "endpoint": "",
+    "deadline": "2026-09-15",
+    "deadlineDisplay": "15. september 2026",
+    "intro": "Prosíme, potvrďte svoju účasť do 15. septembra 2026. Ďakujeme!"
+  },
+  "transport": {
+    "intro": "Pre hostí plánujeme spoločný autobus z okolia Dubnice. Detaily ešte upresníme — sledujte túto sekciu alebo nám napíšte.",
+    "todo": "TODO pre Patrika & Petru: doplniť časy odchodu, presné zastávky a čas spiatočnej cesty.",
+    "bus": {
+      "enabled": true,
+      "title": "Spoločný autobus",
+      "description": "Autobus pôjde po trase cez nasledujúce zastávky. Presné časy odchodu doplníme v auguste.",
+      "stops": [
+        { "name": "Dubnica nad Váhom", "time": "—" },
+        { "name": "Bolešov", "time": "—" },
+        { "name": "Kľúčové", "time": "—" },
+        { "name": "Pruské", "time": "—" },
+        { "name": "Košeca", "time": "—" },
+        { "name": "Klobušice", "time": "—" }
+      ],
+      "returnNote": "Spiatočná cesta po skončení veselice — čas doplníme."
+    },
+    "parking": {
+      "title": "Parkovanie",
+      "description": "V areáli Hotela Vršatec je dostatok parkovacích miest pre osobné autá — zdarma, priamo pred hotelom."
+    }
+  },
+  "songs": {
+    "intro": "Aký song si chceš na svadbe zatancovať? Pozri náš playlist na Spotify a daj nám tip, čo by tam ešte nemalo chýbať.",
+    "spotifyUrl": "",
+    "spotifyEmbedUrl": "",
+    "suggestionsEnabled": true,
+    "suggestionsHint": "Návrhy môžeš poslať aj v RSVP formulári v poli 'Odkaz pre nás'."
+  },
+  "gifts": {
+    "intro": "Najväčším darom je vaša prítomnosť. Ale ak by ste nám predsa len chceli prispieť na náš spoločný začiatok, tu je niekoľko nápadov - každý si môže vybrať podľa svojich možností.",
+    "payment": {
+      "iban": "SK00 0000 0000 0000 0000 0000",
+      "beneficiaryName": "Meno Priezvisko",
+      "bic": "",
+      "currency": "EUR"
+    },
+    "items": [
+      {
+        "id": 1,
+        "title": "Na dvere",
+        "description": "Dverí v dome ešte nemáme - každé euro nás priblíži k tomu, aby sme mohli niekomu konečne otvoriť :)",
+        "amount": 50,
+        "variableSymbol": "1001",
+        "icon": "🚪"
+      },
+      {
+        "id": 2,
+        "title": "Na nové stropy",
+        "description": "Stropy ešte len budú - pomôžte nám pozerať sa hore, namiesto smerom k nebu cez krokvy.",
+        "amount": 100,
+        "variableSymbol": "1002",
+        "icon": "🏠"
+      },
+      {
+        "id": 3,
+        "title": "Na svadobnú cestu",
+        "description": "Snívame o ceste po Škótsku - hrady, hmla, prastaré lesy. Pomôžte nám tam dostať sa!",
+        "amount": 75,
+        "variableSymbol": "1003",
+        "icon": "✈️"
+      },
+      {
+        "id": 4,
+        "title": "Na maškrtu pre Merlina",
+        "description": "Merlin si zaslúži tiež niečo extra k svadbe svojich ľudí. Pamlsky, hračky, možno nový pelech :)",
+        "amount": 20,
+        "variableSymbol": "1004",
+        "icon": "🐕"
+      },
+      {
+        "id": 5,
+        "title": "Voľná suma",
+        "description": "Ak si chcete vybrať vlastnú sumu - kliknite na 'Generovať QR' a zadajte si koľko len chcete.",
+        "amount": 0,
+        "variableSymbol": "1999",
+        "icon": "✨",
+        "customAmount": true
+      }
+    ]
+  },
+  "easterEgg": {
+    "quiz": {
+      "title": "Always",
+      "intro": "Skutoční čarodejníci poznajú odpovede. Skús to aj ty.",
+      "questions": [
+        {
+          "q": "Aké posledné slovo povedal Severus Snape pred Dumbledorovou smrťou v knihe Polovičný princ?",
+          "options": [
+            "Avada Kedavra",
+            "Sectumsempra",
+            "Always",
+            "Lily"
+          ],
+          "correct": 0
+        },
+        {
+          "q": "Čo symbolizuje Patronus v podobe lane?",
+          "options": [
+            "Šťastie",
+            "Smrť",
+            "Večnú lásku k Lily",
+            "Strach"
+          ],
+          "correct": 2
+        },
+        {
+          "q": "Ktoré slovo definuje vzťah Severusa k Lily?",
+          "options": [
+            "Forever",
+            "Always",
+            "Eternal",
+            "True"
+          ],
+          "correct": 1
+        }
+      ],
+      "reward": "Pre nás dvoch tiež. Always. ❤️"
+    }
+  },
+  "ui": {
+    "navItems": [
+      {
+        "id": "uvod",
+        "label": "Úvod"
+      },
+      {
+        "id": "miesto",
+        "label": "Miesto"
+      },
+      {
+        "id": "pribeh",
+        "label": "Náš príbeh"
+      },
+      {
+        "id": "ubytovanie",
+        "label": "Ubytovanie"
+      },
+      {
+        "id": "doprava",
+        "label": "Doprava"
+      },
+      {
+        "id": "piesne",
+        "label": "Piesne"
+      },
+      {
+        "id": "rsvp",
+        "label": "RSVP"
+      },
+      {
+        "id": "darceky",
+        "label": "Darčeky"
+      }
+    ]
+  }
+}

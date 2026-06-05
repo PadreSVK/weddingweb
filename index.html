@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Naša svadba — 16. október 2026, Hotel Vršatec" />
+  <title>Naša svadba — 16.10.2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italianno&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script src="https://unpkg.com/vue@3.4.27/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+  <!-- FALLBACK CONFIG (synced with config.json via sync-config.js) -->
+  <script type="application/json" id="wedding-config-fallback">
+{
+  "couple": {
+    "bride": "Petra",
+    "groom": "Patrik",
+    "hashtag": "#Svadba2026"
+  },
+  "wedding": {
+    "date": "2026-10-16T15:00:00",
+    "dateDisplay": "16. október 2026",
+    "timeDisplay": "15:00",
+    "venue": {
+      "name": "Hotel Vršatec",
+      "address": "Vršatské Podhradie 24, 018 52 Pruské",
+      "url": "https://www.hotelvrsatec.sk/",
+      "wazeUrl": "https://waze.com/ul?q=Hotel%20Vr%C5%A1atec%20Vr%C5%A1atsk%C3%A9%20Podhradie&navigate=yes",
+      "googleMapsUrl": "https://www.google.com/maps/dir/?api=1&destination=Hotel+Vr%C5%A1atec+Vr%C5%A1atsk%C3%A9+Podhradie",
+      "description": "Romantický hotel ukrytý v náručí Bielych Karpát, priamo pod ruinami hradu Vršatec. Miesto, kde sa stretáva príroda s históriou."
+    }
+  },
+  "accommodation": {
+    "intro": "Pre vašu pohodu sme rezervovali izby priamo v Hotel Vršatec. Ak máte záujem o ubytovanie, napíšte nám v RSVP formulári.",
+    "options": [
+      {
+        "name": "Hotel Vršatec",
+        "description": "Priamo v mieste konania svadby. Izby pre svadobčanov rezervujeme my - uveďte to v RSVP.",
+        "price": "od 45 € / osoba / noc",
+        "url": "https://www.hotelvrsatec.sk/"
+      },
+      {
+        "name": "Penzióny v okolí",
+        "description": "Pre tých, ktorí chcú viac súkromia - v okolí Pruského a Vršatského Podhradia je niekoľko menších penziónov.",
+        "price": "individuálne",
+        "url": "https://www.google.com/search?q=penzi%C3%B3n+Vr%C5%A1atsk%C3%A9+Podhradie"
+      }
+    ]
+  },
+  "story": {
+    "intro": "Náš spoločný príbeh sa píše už roky. Tu sú niektoré kapitoly...",
+    "chapters": [
+      {
+        "title": "Ako sme sa stretli",
+        "text": "Doplňte váš príbeh - kde a kedy ste sa stretli, čo vás na sebe očarilo.",
+        "image": "assets/photos/story-1.jpg"
+      },
+      {
+        "title": "Naše cesty",
+        "text": "Spolu milujeme cestovanie - každé miesto, ktoré spolu navštívime, je ďalšia spomienka, ktorú si nesieme.",
+        "image": "assets/photos/story-2.jpg"
+      },
+      {
+        "title": "Merlin sa pridal",
+        "text": "Náš štvornohý parťák Merlin nám rozžiaril život. Spolu sme rodina.",
+        "image": "assets/photos/merlin.jpg"
+      },
+      {
+        "title": "Always",
+        "text": "Ako Lily a Severus - 'Always'. Naša láska je ako ten strom z pozvánky: korene, ktoré rastú hlbšie každým rokom.",
+        "image": "assets/photos/always.jpg"
+      }
+    ]
+  },
+  "rsvp": {
+    "endpoint": "",
+    "deadline": "2026-09-15",
+    "deadlineDisplay": "15. september 2026",
+    "intro": "Prosíme, potvrďte svoju účasť do 15. septembra 2026. Ďakujeme!"
+  },
+  "transport": {
+    "intro": "Pre hostí plánujeme spoločný autobus z okolia Dubnice. Detaily ešte upresníme — sledujte túto sekciu alebo nám napíšte.",
+    "todo": "TODO pre Patrika & Petru: doplniť časy odchodu, presné zastávky a čas spiatočnej cesty.",
+    "bus": {
+      "enabled": true,
+      "title": "Spoločný autobus",
+      "description": "Autobus pôjde po trase cez nasledujúce zastávky. Presné časy odchodu doplníme v auguste.",
+      "stops": [
+        {
+          "name": "Dubnica nad Váhom",
+          "time": "—"
+        },
+        {
+          "name": "Bolešov",
+          "time": "—"
+        },
+        {
+          "name": "Kľúčové",
+          "time": "—"
+        },
+        {
+          "name": "Pruské",
+          "time": "—"
+        },
+        {
+          "name": "Košeca",
+          "time": "—"
+        },
+        {
+          "name": "Klobušice",
+          "time": "—"
+        }
+      ],
+      "returnNote": "Spiatočná cesta po skončení veselice — čas doplníme."
+    },
+    "parking": {
+      "title": "Parkovanie",
+      "description": "V areáli Hotela Vršatec je dostatok parkovacích miest pre osobné autá — zdarma, priamo pred hotelom."
+    }
+  },
+  "songs": {
+    "intro": "Aký song si chceš na svadbe zatancovať? Pozri náš playlist na Spotify a daj nám tip, čo by tam ešte nemalo chýbať.",
+    "spotifyUrl": "",
+    "spotifyEmbedUrl": "",
+    "suggestionsEnabled": true,
+    "suggestionsHint": "Návrhy môžeš poslať aj v RSVP formulári v poli 'Odkaz pre nás'."
+  },
+  "gifts": {
+    "intro": "Najväčším darom je vaša prítomnosť. Ale ak by ste nám predsa len chceli prispieť na náš spoločný začiatok, tu je niekoľko nápadov - každý si môže vybrať podľa svojich možností.",
+    "payment": {
+      "iban": "SK00 0000 0000 0000 0000 0000",
+      "beneficiaryName": "Meno Priezvisko",
+      "bic": "",
+      "currency": "EUR"
+    },
+    "items": [
+      {
+        "id": 1,
+        "title": "Na dvere",
+        "description": "Dverí v dome ešte nemáme - každé euro nás priblíži k tomu, aby sme mohli niekomu konečne otvoriť :)",
+        "amount": 50,
+        "variableSymbol": "1001",
+        "icon": "🚪"
+      },
+      {
+        "id": 2,
+        "title": "Na nové stropy",
+        "description": "Stropy ešte len budú - pomôžte nám pozerať sa hore, namiesto smerom k nebu cez krokvy.",
+        "amount": 100,
+        "variableSymbol": "1002",
+        "icon": "🏠"
+      },
+      {
+        "id": 3,
+        "title": "Na svadobnú cestu",
+        "description": "Snívame o ceste po Škótsku - hrady, hmla, prastaré lesy. Pomôžte nám tam dostať sa!",
+        "amount": 75,
+        "variableSymbol": "1003",
+        "icon": "✈️"
+      },
+      {
+        "id": 4,
+        "title": "Na maškrtu pre Merlina",
+        "description": "Merlin si zaslúži tiež niečo extra k svadbe svojich ľudí. Pamlsky, hračky, možno nový pelech :)",
+        "amount": 20,
+        "variableSymbol": "1004",
+        "icon": "🐕"
+      },
+      {
+        "id": 5,
+        "title": "Voľná suma",
+        "description": "Ak si chcete vybrať vlastnú sumu - kliknite na 'Generovať QR' a zadajte si koľko len chcete.",
+        "amount": 0,
+        "variableSymbol": "1999",
+        "icon": "✨",
+        "customAmount": true
+      }
+    ]
+  },
+  "easterEgg": {
+    "quiz": {
+      "title": "Always",
+      "intro": "Skutoční čarodejníci poznajú odpovede. Skús to aj ty.",
+      "questions": [
+        {
+          "q": "Aké posledné slovo povedal Severus Snape pred Dumbledorovou smrťou v knihe Polovičný princ?",
+          "options": [
+            "Avada Kedavra",
+            "Sectumsempra",
+            "Always",
+            "Lily"
+          ],
+          "correct": 0
+        },
+        {
+          "q": "Čo symbolizuje Patronus v podobe lane?",
+          "options": [
+            "Šťastie",
+            "Smrť",
+            "Večnú lásku k Lily",
+            "Strach"
+          ],
+          "correct": 2
+        },
+        {
+          "q": "Ktoré slovo definuje vzťah Severusa k Lily?",
+          "options": [
+            "Forever",
+            "Always",
+            "Eternal",
+            "True"
+          ],
+          "correct": 1
+        }
+      ],
+      "reward": "Pre nás dvoch tiež. Always. ❤️"
+    }
+  },
+  "ui": {
+    "navItems": [
+      {
+        "id": "uvod",
+        "label": "Úvod"
+      },
+      {
+        "id": "miesto",
+        "label": "Miesto"
+      },
+      {
+        "id": "pribeh",
+        "label": "Náš príbeh"
+      },
+      {
+        "id": "ubytovanie",
+        "label": "Ubytovanie"
+      },
+      {
+        "id": "doprava",
+        "label": "Doprava"
+      },
+      {
+        "id": "piesne",
+        "label": "Piesne"
+      },
+      {
+        "id": "rsvp",
+        "label": "RSVP"
+      },
+      {
+        "id": "darceky",
+        "label": "Darčeky"
+      }
+    ]
+  }
+}
+  </script>
+</head>
+<body>
+  <div id="app">
+    <nav class="nav" :class="{ 'nav--scrolled': scrolled }">
+      <div class="nav__inner">
+        <a href="#uvod" class="nav__logo" @click="scrollTo('uvod', $event)">
+          <span class="logo-mark">A</span>
+        </a>
+        <button class="nav__toggle" @click="menuOpen = !menuOpen" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav__list" :class="{ 'nav__list--open': menuOpen }">
+          <li v-for="item in config.ui.navItems" :key="item.id">
+            <a :href="'#' + item.id" @click="scrollTo(item.id, $event)">{{ item.label }}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="uvod" class="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="mountain mountain--back"></div>
+        <div class="mountain mountain--mid"></div>
+        <div class="mountain mountain--front"></div>
+        <div class="mist"></div>
+      </div>
+      <div class="hero__content">
+        <div class="hero__date">{{ config.wedding.dateDisplay }}</div>
+        <h1 class="hero__names">
+          <span class="hero__name">{{ config.couple.bride }}</span>
+          <span class="hero__amp">&amp;</span>
+          <span class="hero__name">{{ config.couple.groom }}</span>
+        </h1>
+        <p class="hero__subtitle">{{ config.wedding.venue.name }} · Biele Karpaty</p>
+
+        <div class="countdown" v-if="countdown">
+          <div class="countdown__cell"><span class="countdown__num">{{ countdown.days }}</span><span class="countdown__label">dní</span></div>
+          <div class="countdown__cell"><span class="countdown__num">{{ countdown.hours }}</span><span class="countdown__label">hodín</span></div>
+          <div class="countdown__cell"><span class="countdown__num">{{ countdown.minutes }}</span><span class="countdown__label">minút</span></div>
+          <div class="countdown__cell"><span class="countdown__num">{{ countdown.seconds }}</span><span class="countdown__label">sekúnd</span></div>
+        </div>
+
+        <a href="#rsvp" class="btn btn--primary" @click="scrollTo('rsvp', $event)">Potvrdiť účasť</a>
+
+        <button class="merlin-hidden merlin-hidden--1" @click="findMerlin(1)" aria-label="Merlin">
+          <span class="merlin-emoji">🐕</span>
+        </button>
+      </div>
+      <div class="scroll-hint">
+        <span>scroll</span>
+        <div class="scroll-hint__line"></div>
+      </div>
+    </section>
+
+    <section id="miesto" class="section section--cream">
+      <div class="container">
+        <div class="section__heading">
+          <span class="section__eyebrow">Kde sa to stane</span>
+          <h2 class="section__title">{{ config.wedding.venue.name }}</h2>
+          <div class="ornament"></div>
+        </div>
+        <div class="venue">
+          <div class="venue__info">
+            <p class="venue__desc">{{ config.wedding.venue.description }}</p>
+            <div class="venue__details">
+              <div class="venue__detail">
+                <span class="venue__label">Dátum</span>
+                <span class="venue__value">{{ config.wedding.dateDisplay }}</span>
+              </div>
+              <div class="venue__detail">
+                <span class="venue__label">Čas</span>
+                <span class="venue__value">{{ config.wedding.timeDisplay }}</span>
+              </div>
+              <div class="venue__detail venue__detail--full">
+                <span class="venue__label">Adresa</span>
+                <span class="venue__value">{{ config.wedding.venue.address }}</span>
+              </div>
+            </div>
+            <div class="venue__actions">
+              <a :href="config.wedding.venue.url" target="_blank" rel="noopener" class="btn btn--ghost"><span>🏰</span> Web hotela</a>
+              <a :href="config.wedding.venue.wazeUrl" target="_blank" rel="noopener" class="btn btn--ghost"><span>🧭</span> Otvoriť vo Waze</a>
+              <a :href="config.wedding.venue.googleMapsUrl" target="_blank" rel="noopener" class="btn btn--ghost"><span>📍</span> Google Maps</a>
+            </div>
+          </div>
+          <div class="venue__visual">
+            <div class="venue__frame">
+              <div class="venue__illustration">
+                <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="skygrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#e8dcc4" />
+                      <stop offset="100%" stop-color="#f4ebd9" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="150" cy="150" r="140" fill="url(#skygrad)" />
+                  <path d="M10,200 L70,120 L120,170 L180,90 L230,150 L290,200 Z" fill="#7a8771" opacity="0.85"/>
+                  <path d="M10,210 L60,150 L110,180 L160,140 L220,180 L290,210 L290,290 L10,290 Z" fill="#5d6b56" opacity="0.95"/>
+                  <g transform="translate(150, 100)">
+                    <rect x="-8" y="0" width="16" height="20" fill="#4a4036"/>
+                    <rect x="-12" y="-5" width="4" height="8" fill="#4a4036"/>
+                    <rect x="-4" y="-8" width="4" height="11" fill="#4a4036"/>
+                    <rect x="4" y="-5" width="4" height="8" fill="#4a4036"/>
+                  </g>
+                  <g transform="translate(220, 220)">
+                    <rect x="-2" y="0" width="4" height="30" fill="#3d2f24"/>
+                    <circle cx="0" cy="-5" r="14" fill="#6b7a52" opacity="0.8"/>
+                    <circle cx="-8" cy="3" r="9" fill="#6b7a52" opacity="0.8"/>
+                    <circle cx="8" cy="2" r="10" fill="#6b7a52" opacity="0.8"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pribeh" class="section section--sage">
+      <div class="container">
+        <div class="section__heading">
+          <span class="section__eyebrow">Náš príbeh</span>
+          <h2 class="section__title">Kapitoly</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.story.intro }}</p>
+        </div>
+        <div class="story">
+          <div v-for="(chapter, idx) in config.story.chapters" :key="idx" class="story__chapter" :class="{ 'story__chapter--reverse': idx % 2 === 1 }">
+            <div class="story__img-wrap">
+              <div class="story__img" :style="{ backgroundImage: 'url(' + chapter.image + ')' }">
+                <span class="story__img-placeholder">{{ getChapterEmoji(idx) }}</span>
+              </div>
+            </div>
+            <div class="story__text-wrap">
+              <span class="story__chapter-num">0{{ idx + 1 }}</span>
+              <h3 class="story__title">{{ chapter.title }}</h3>
+              <p class="story__text">{{ chapter.text }}</p>
+            </div>
+          </div>
+        </div>
+        <button class="merlin-hidden merlin-hidden--2" @click="findMerlin(2)" aria-label="Merlin">
+          <span class="merlin-emoji">🐾</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="ubytovanie" class="section section--cream">
+      <div class="container">
+        <div class="section__heading">
+          <span class="section__eyebrow">Pohodlie pre vás</span>
+          <h2 class="section__title">Ubytovanie</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.accommodation.intro }}</p>
+        </div>
+        <div class="acco">
+          <article v-for="(opt, idx) in config.accommodation.options" :key="idx" class="acco__card">
+            <h3 class="acco__name">{{ opt.name }}</h3>
+            <p class="acco__desc">{{ opt.description }}</p>
+            <div class="acco__price">{{ opt.price }}</div>
+            <a :href="opt.url" target="_blank" rel="noopener" class="btn btn--ghost">Viac info →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="doprava" class="section section--sage" v-if="config.transport">
+      <div class="container">
+        <div class="section__heading">
+          <span class="section__eyebrow">Ako sa k nám dostať</span>
+          <h2 class="section__title">Doprava &amp; parkovanie</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.transport.intro }}</p>
+        </div>
+
+        <div class="transport">
+          <article class="transport__card transport__card--bus" v-if="config.transport.bus && config.transport.bus.enabled">
+            <div class="transport__icon">🚌</div>
+            <h3 class="transport__name">{{ config.transport.bus.title }}</h3>
+            <p class="transport__desc">{{ config.transport.bus.description }}</p>
+            <ol class="bus-stops">
+              <li v-for="stop in config.transport.bus.stops" :key="stop.name" class="bus-stop">
+                <span class="bus-stop__name">{{ stop.name }}</span>
+                <span class="bus-stop__time">{{ stop.time }}</span>
+              </li>
+            </ol>
+            <p class="transport__note">↩ {{ config.transport.bus.returnNote }}</p>
+          </article>
+
+          <article class="transport__card" v-if="config.transport.parking">
+            <div class="transport__icon">🅿️</div>
+            <h3 class="transport__name">{{ config.transport.parking.title }}</h3>
+            <p class="transport__desc">{{ config.transport.parking.description }}</p>
+            <a :href="config.wedding.venue.googleMapsUrl" target="_blank" rel="noopener" class="btn btn--ghost">
+              📍 Otvoriť v mapách
+            </a>
+          </article>
+        </div>
+
+        <p class="form-hint" v-if="config.transport.todo">
+          <strong>Dev note:</strong> {{ config.transport.todo }}
+        </p>
+      </div>
+    </section>
+
+    <section id="piesne" class="section section--cream" v-if="config.songs">
+      <div class="container container--narrow">
+        <div class="section__heading">
+          <span class="section__eyebrow">Hudba &amp; tanec</span>
+          <h2 class="section__title">Návrh piesní</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.songs.intro }}</p>
+        </div>
+
+        <div class="songs">
+          <div v-if="config.songs.spotifyEmbedUrl" class="songs__embed">
+            <iframe
+              :src="config.songs.spotifyEmbedUrl"
+              width="100%"
+              height="380"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              referrerpolicy="strict-origin"
+              title="Spotify playlist"
+            ></iframe>
+          </div>
+
+          <div v-else class="songs__placeholder">
+            <div class="songs__placeholder-icon">🎵</div>
+            <p>Playlist ešte len chystáme. Spotify link doplníme čoskoro.</p>
+          </div>
+
+          <div class="songs__actions" v-if="config.songs.spotifyUrl">
+            <a :href="config.songs.spotifyUrl" target="_blank" rel="noopener" class="btn btn--primary">
+              <span>🎧</span> Otvoriť v Spotify
+            </a>
+          </div>
+
+          <p class="songs__hint" v-if="config.songs.suggestionsEnabled">{{ config.songs.suggestionsHint }}</p>
+
+          <p class="form-hint" v-if="!config.songs.spotifyUrl">
+            <strong>Dev note:</strong> To embed the playlist, set <code>config.songs.spotifyUrl</code> and <code>config.songs.spotifyEmbedUrl</code>. The embed link comes from Spotify → Share → Embed playlist.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" class="section section--terracotta">
+      <div class="container container--narrow">
+        <div class="section__heading">
+          <span class="section__eyebrow">Potvrdenie účasti</span>
+          <h2 class="section__title">RSVP</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.rsvp.intro }}</p>
+        </div>
+
+        <form v-if="!rsvpSent" class="rsvp-form" @submit.prevent="submitRsvp">
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">Meno a priezvisko *</span>
+              <input v-model="rsvp.name" type="text" required placeholder="Ján Novák" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">E-mail</span>
+              <input v-model="rsvp.email" type="email" placeholder="jan@example.com" />
+            </label>
+          </div>
+
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">Prídeš? *</legend>
+            <label class="radio">
+              <input type="radio" v-model="rsvp.attending" value="yes" required />
+              <span>Áno, určite tam budem ✨</span>
+            </label>
+            <label class="radio">
+              <input type="radio" v-model="rsvp.attending" value="no" />
+              <span>Žiaľ, nemôžem prísť 💔</span>
+            </label>
+          </fieldset>
+
+          <template v-if="rsvp.attending === 'yes'">
+            <div class="form-row">
+              <label class="form-field">
+                <span class="form-label">Počet dospelých</span>
+                <input v-model.number="rsvp.adults" type="number" min="1" max="10" />
+              </label>
+              <label class="form-field">
+                <span class="form-label">Počet detí</span>
+                <input v-model.number="rsvp.children" type="number" min="0" max="10" />
+              </label>
+            </div>
+
+            <fieldset class="form-fieldset">
+              <legend class="form-legend">Stravovanie</legend>
+              <label class="check"><input type="checkbox" v-model="rsvp.vegan" /><span>Vegán</span></label>
+              <label class="check"><input type="checkbox" v-model="rsvp.vegetarian" /><span>Vegetarián</span></label>
+              <label class="check"><input type="checkbox" v-model="rsvp.glutenFree" /><span>Bezlepkové</span></label>
+            </fieldset>
+
+            <label class="form-field">
+              <span class="form-label">Alergie / iné stravovacie obmedzenia</span>
+              <input v-model="rsvp.allergies" type="text" placeholder="napr. orechy, laktóza..." />
+            </label>
+
+            <fieldset class="form-fieldset">
+              <legend class="form-legend">Záujem o ubytovanie v hoteli</legend>
+              <label class="radio"><input type="radio" v-model="rsvp.accommodation" value="yes" /><span>Áno, rezervujte mi miesto</span></label>
+              <label class="radio"><input type="radio" v-model="rsvp.accommodation" value="no" /><span>Nie, mám vlastné</span></label>
+            </fieldset>
+          </template>
+
+          <label class="form-field">
+            <span class="form-label">Odkaz pre nás</span>
+            <textarea v-model="rsvp.message" rows="3" placeholder="Tešíme sa, prajeme..."></textarea>
+          </label>
+
+          <p class="form-hint" v-if="!config.rsvp.endpoint">
+            <strong>Dev note:</strong> The RSVP endpoint is not set in <code>config.json</code>.
+            After submit, the form just copies your response and opens a mailto: link.
+          </p>
+
+          <button type="submit" class="btn btn--primary btn--lg">Odoslať RSVP</button>
+        </form>
+
+        <div v-else class="rsvp-thanks">
+          <div class="rsvp-thanks__icon">💌</div>
+          <h3>Ďakujeme!</h3>
+          <p>Vaša odpoveď bola zaznamenaná. Tešíme sa na vás!</p>
+          <button class="btn btn--ghost" @click="rsvpSent = false">Odoslať ďalšiu</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="darceky" class="section section--cream">
+      <div class="container">
+        <div class="section__heading">
+          <span class="section__eyebrow">Ak by ste chceli</span>
+          <h2 class="section__title">Darčeky</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.gifts.intro }}</p>
+        </div>
+
+        <div class="gifts">
+          <article v-for="gift in config.gifts.items" :key="gift.id" class="gift">
+            <div class="gift__icon">{{ gift.icon }}</div>
+            <h3 class="gift__title">{{ gift.title }}</h3>
+            <p class="gift__desc">{{ gift.description }}</p>
+            <div class="gift__amount" v-if="!gift.customAmount">Návrh: <strong>{{ gift.amount }} €</strong></div>
+            <div class="gift__amount" v-else>Vlastná suma</div>
+            <button class="btn btn--ghost" @click="openQrModal(gift)">Generovať QR platbu</button>
+          </article>
+        </div>
+
+        <p class="gifts__note" v-if="!isIbanFilled">
+          <strong>Dev note:</strong> For working QR codes, fill in the IBAN and beneficiary name in <code>config.json</code> under <code>gifts.payment</code>.
+        </p>
+      </div>
+    </section>
+
+    <div v-if="qrModal.open" class="modal" @click.self="closeQrModal">
+      <div class="modal__inner">
+        <button class="modal__close" @click="closeQrModal" aria-label="Zavrieť">×</button>
+        <h3 class="modal__title">{{ qrModal.gift.icon }} {{ qrModal.gift.title }}</h3>
+        <p class="modal__desc">{{ qrModal.gift.description }}</p>
+
+        <div class="form-field" v-if="qrModal.gift.customAmount || qrModal.editAmount">
+          <span class="form-label">Suma (€)</span>
+          <input type="number" v-model.number="qrModal.amount" min="1" step="1" />
+        </div>
+        <div v-else class="qr-amount-row">
+          <span>Suma: <strong>{{ qrModal.amount }} €</strong></span>
+          <button class="link-btn" @click="qrModal.editAmount = true">zmeniť</button>
+        </div>
+
+        <div class="form-field">
+          <span class="form-label">Správa pre nás (voliteľné)</span>
+          <input type="text" v-model="qrModal.message" maxlength="35" placeholder="napr. Veľa lásky!" />
+        </div>
+
+        <div class="qr-canvas-wrap">
+          <div class="qr-canvas" v-html="qrSvg"></div>
+        </div>
+
+        <div class="qr-details">
+          <div><span>IBAN:</span> <code>{{ config.gifts.payment.iban }}</code></div>
+          <div><span>Príjemca:</span> <code>{{ config.gifts.payment.beneficiaryName }}</code></div>
+          <div><span>Variabilný symbol:</span> <code>{{ qrModal.gift.variableSymbol }}</code></div>
+          <div><span>Suma:</span> <code>{{ qrModal.amount }} €</code></div>
+        </div>
+
+        <p class="qr-hint">Naskenuj QR kód v mobilnej bankovej aplikácii (podporuje EPC QR — pracuje vo všetkých SK/EU bankách).</p>
+      </div>
+    </div>
+
+    <section class="section section--night">
+      <div class="container container--narrow">
+        <div class="section__heading section__heading--centered">
+          <span class="section__eyebrow section__eyebrow--gold">Pre tých, čo vedia</span>
+          <h2 class="section__title section__title--gold">{{ config.easterEgg.quiz.title }}</h2>
+          <p class="section__lead section__lead--light">{{ config.easterEgg.quiz.intro }}</p>
+        </div>
+
+        <div v-if="!quiz.started" class="quiz-cta">
+          <button class="btn btn--gold" @click="startQuiz">Začať kvíz ✨</button>
+        </div>
+
+        <div v-else-if="quiz.finished" class="quiz-result">
+          <div class="quiz-result__score">{{ quiz.score }} / {{ config.easterEgg.quiz.questions.length }}</div>
+          <p v-if="quiz.score === config.easterEgg.quiz.questions.length" class="quiz-result__text always-text">{{ config.easterEgg.quiz.reward }}</p>
+          <p v-else class="quiz-result__text">Nevadí, hlavne že vieš čo znamená "Always". ❤️</p>
+          <button class="btn btn--ghost btn--ghost-light" @click="restartQuiz">Skúsiť znova</button>
+        </div>
+
+        <div v-else class="quiz">
+          <div class="quiz__progress">Otázka {{ quiz.current + 1 }} / {{ config.easterEgg.quiz.questions.length }}</div>
+          <h3 class="quiz__question">{{ currentQuestion.q }}</h3>
+          <div class="quiz__options">
+            <button v-for="(opt, idx) in currentQuestion.options" :key="idx" class="quiz__option" :class="quizOptionClass(idx)" :disabled="quiz.answered !== null" @click="answerQuiz(idx)">{{ opt }}</button>
+          </div>
+          <button v-if="quiz.answered !== null" class="btn btn--gold" @click="nextQuestion">
+            {{ quiz.current + 1 < config.easterEgg.quiz.questions.length ? 'Ďalej' : 'Výsledok' }} →
+          </button>
+        </div>
+
+        <button class="merlin-hidden merlin-hidden--3" @click="findMerlin(3)" aria-label="Merlin">
+          <span class="merlin-emoji">🌙</span>
+        </button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__heart">❦</div>
+        <p class="footer__names">{{ config.couple.bride }} &amp; {{ config.couple.groom }}</p>
+        <p class="footer__date">{{ config.wedding.dateDisplay }} · {{ config.wedding.venue.name }}</p>
+        <p class="footer__hashtag">{{ config.couple.hashtag }}</p>
+        <p class="footer__always">"After all this time?" — "Always."</p>
+      </div>
+    </footer>
+
+    <transition name="fade">
+      <div v-if="merlinNotification" class="merlin-notification">
+        <div class="merlin-notification__emoji">🐕✨</div>
+        <div class="merlin-notification__text">
+          <strong>Našiel si Merlina!</strong>
+          <span>{{ merlinFunFacts[merlinNotification.id - 1] }}</span>
+          <small>{{ merlinFound.length }} / 3 nájdených</small>
+        </div>
+      </div>
+    </transition>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
