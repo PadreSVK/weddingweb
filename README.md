@@ -169,9 +169,21 @@ This is a 100% static site with no build step, so GitHub Pages serves it directl
 5. Wait ~1 minute — the site goes live at `https://<username>.github.io/<repo>/`.
 
 Notes:
-- `config.json` is loaded via `fetch` from the same origin, so it works on Pages out of the box.
 - A `.nojekyll` file is included so GitHub Pages serves all files as-is (no Jekyll processing).
 - Other hosts work too: Netlify (drag-and-drop the folder) or Vercel (git or drag-and-drop), both free.
+
+### Privacy / "keep us out of Google"
+
+- **Production uses the inline config**, not a live `config.json` fetch. `app.js` only
+  fetches `config.json` on `localhost`/`file://` (dev), so the deployed site doesn't
+  request it. Run `node sync-config.js` after editing `config.json` so the inline copy
+  (and therefore the live site) is up to date.
+- A **`noindex, nofollow`** meta tag tells search engines not to index the page.
+- **`robots.txt`** disallows all crawlers. Because the site is on a custom domain
+  (`svikruhovci.sk`), `robots.txt` is served from the domain root and is honored.
+- Honest caveat: this is a static site, so the data (names, IBAN, …) still lives in the
+  page source — `noindex`/`robots` stop it appearing in search and deter polite bots, but
+  nothing can fully hide client-side data on a public page. Don't put true secrets here.
 
 ## 📂 Project structure
 
@@ -183,6 +195,8 @@ weddingweb/
 ├── css/styles.css          # All styles
 ├── js/app.js               # Vue 3 application
 ├── assets/photos/          # Photos (story-1.jpg, merlin.jpg, …)
+├── robots.txt              # Asks crawlers to stay away (honored on the custom domain)
+├── CNAME                   # Custom domain (svikruhovci.sk)
 ├── .nojekyll               # Tells GitHub Pages to skip Jekyll
 ├── .gitignore
 └── README.md

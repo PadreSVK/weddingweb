@@ -65,8 +65,9 @@ createApp({
 
     // ------------------------------------------------------------
     // CONFIG LOAD
-    // 1) Try the inline fallback (#wedding-config-fallback) — works even on file://
-    // 2) Try fetching config.json — for live edits via a local server
+    // Production: use the inline synced config (#wedding-config-fallback) only.
+    // Local dev: also fetch config.json so edits show up live without re-syncing.
+    // Keeping the fetch dev-only means config.json isn't requested in production.
     // ------------------------------------------------------------
     function loadInlineConfig() {
       const tag = document.getElementById('wedding-config-fallback');
@@ -83,21 +84,30 @@ createApp({
       loaded.value = true;
     }
 
-    fetch('config.json')
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(data => {
-        config.value = data;
-        loaded.value = true;
-        console.info('Config loaded from config.json (live)');
-      })
-      .catch(err => {
-        if (!inline) {
-          console.error('Failed to load config:', err);
-          alert('Configuration failed to load. For live editing, run a local server — see README.');
-        } else {
-          console.info('Using inline fallback config (file:// or fetch blocked).');
-        }
-      });
+    const host = location.hostname;
+    const isDev =
+      location.protocol === 'file:' || host === '' ||
+      host === 'localhost' || host === '127.0.0.1';
+
+    if (isDev) {
+      fetch('config.json')
+        .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(data => {
+          config.value = data;
+          loaded.value = true;
+          console.info('Config loaded from config.json (live, dev)');
+        })
+        .catch(err => {
+          if (!inline) {
+            console.error('Failed to load config:', err);
+            alert('Configuration failed to load. For live editing, run a local server — see README.');
+          } else {
+            console.info('Using inline fallback config (file:// or fetch blocked).');
+          }
+        });
+    } else if (!inline) {
+      console.error('No inline config found — run: node sync-config.js');
+    }
 
     // ------------------------------------------------------------
     // COUNTDOWN + SCROLL

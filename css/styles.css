@@ -1491,6 +1491,12 @@ body {
   }
 }
 
+/* On narrow or short screens the centred hero content reaches the bottom,
+   so hide the decorative scroll hint to avoid overlapping the CTA button. */
+@media (max-width: 600px), (max-height: 640px) {
+  .scroll-hint { display: none; }
+}
+
 /* ===== REDUCED MOTION ===== */
 
 @media (prefers-reduced-motion: reduce) {
