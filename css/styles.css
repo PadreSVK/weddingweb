@@ -75,6 +75,12 @@ body {
   right: 0;
   z-index: 100;
   padding: 1.5rem 0;
+  /* soft cream scrim so links stay legible over the leafy hero;
+     replaced by a solid bar once scrolled */
+  background: linear-gradient(180deg,
+    rgba(243, 238, 226, 0.92) 0%,
+    rgba(243, 238, 226, 0.72) 55%,
+    rgba(243, 238, 226, 0) 100%);
   transition: all 0.3s var(--ease);
 }
 
@@ -122,6 +128,7 @@ body {
   letter-spacing: 0.05em;
   transition: color 0.2s var(--ease);
   position: relative;
+  text-shadow: 0 1px 5px rgba(243, 238, 226, 0.75);
 }
 
 .nav__list a:hover {

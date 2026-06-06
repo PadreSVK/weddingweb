@@ -266,7 +266,7 @@
     <nav class="nav" :class="{ 'nav--scrolled': scrolled }">
       <div class="nav__inner">
         <a href="#uvod" class="nav__logo" @click="scrollTo('uvod', $event)">
-          <span class="logo-mark">A</span>
+          <span class="logo-mark">{{ config.couple.bride.charAt(0) }}&amp;{{ config.couple.groom.charAt(0) }}</span>
         </a>
         <button class="nav__toggle" @click="menuOpen = !menuOpen" aria-label="Menu">
           <span></span><span></span><span></span>
