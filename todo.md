@@ -22,13 +22,18 @@ fall back to an emoji placeholder, so the page won't break.
 - [ ] `couple.hashtag` — currently `#Svadba2026`. Personalize it (e.g. `#PetraAPatrik2026`).
 - [ ] Re-read the other story chapters and venue/accommodation text and tweak if needed.
 
-## 📨 RSVP — where responses go
+## 📨 Submissions — where RSVP + Merlin reward go
 
-- [ ] `rsvp.endpoint` is empty. Until set, the form only copies the answer to the clipboard
-      and opens a `mailto:` draft. Pick one and paste the URL:
+Both run through the shared `submissions` block in `config.json`.
+
+- [ ] `submissions.email` — set the recipient address for the `mailto:` fallback
+      (used while no endpoint is wired up). Empty = mail draft has no recipient.
+- [ ] `submissions.endpoint` is empty. Until set, submissions only copy a summary
+      to the clipboard and open a `mailto:` draft. Pick one and paste the URL:
   - Formspree (simplest, free): `https://formspree.io/f/<yourcode>`
   - Web3Forms (free): `https://api.web3forms.com/submit` (+ `access_key` in payload)
   - Google Apps Script: deploy a `doPost(e)` web app and use its URL
+      (payloads carry a `type`: `"rsvp"` or `"merlin-reward"`).
 - [ ] Send a test RSVP after wiring it up and confirm it arrives.
 
 ## 🎁 Gifts — QR payments

@@ -74,10 +74,13 @@
     ]
   },
   "rsvp": {
-    "endpoint": "",
     "deadline": "2026-09-15",
     "deadlineDisplay": "15. september 2026",
     "intro": "Prosíme, potvrďte svoju účasť do 15. septembra 2026. Ďakujeme!"
+  },
+  "submissions": {
+    "endpoint": "",
+    "email": ""
   },
   "transport": {
     "intro": "Pre hostí plánujeme spoločný autobus z okolia Dubnice. Detaily ešte upresníme — sledujte túto sekciu alebo nám napíšte.",
@@ -138,7 +141,7 @@
       {
         "id": 1,
         "title": "Na dvere",
-        "description": "Dverí v dome ešte nemáme - každé euro nás priblíži k tomu, aby sme mohli niekomu konečne otvoriť :)",
+        "description": "Dverí na byte ešte nemáme všetky - každé euro nás priblíži k tomu, aby sme mohli niekomu konečne otvoriť :)",
         "amount": 50,
         "variableSymbol": "1001",
         "icon": "🚪"
@@ -575,9 +578,9 @@
             <textarea v-model="rsvp.message" rows="3" placeholder="Tešíme sa, prajeme..."></textarea>
           </label>
 
-          <p class="form-hint" v-if="!config.rsvp.endpoint">
-            <strong>Dev note:</strong> The RSVP endpoint is not set in <code>config.json</code>.
-            After submit, the form just copies your response and opens a mailto: link.
+          <p class="form-hint" v-if="!config.submissions.endpoint">
+            <strong>Dev note:</strong> No submissions endpoint set in <code>config.submissions</code>.
+            RSVP (and the Merlin reward) copy a summary and open a mailto: draft instead.
           </p>
 
           <button type="submit" class="btn btn--primary btn--lg">Odoslať RSVP</button>
@@ -650,6 +653,34 @@
         </div>
 
         <p class="qr-hint">Naskenuj QR kód v mobilnej bankovej aplikácii (podporuje EPC QR — pracuje vo všetkých SK/EU bankách).</p>
+      </div>
+    </div>
+
+    <div v-if="merlinReward.open" class="modal" @click.self="closeMerlinReward">
+      <div class="modal__inner">
+        <button class="modal__close" @click="closeMerlinReward" aria-label="Zavrieť">×</button>
+
+        <template v-if="!merlinReward.sent">
+          <h3 class="modal__title">🐕 Našiel si všetkých troch Merlinov!</h3>
+          <p class="modal__desc">
+            Tvoja výhra je <strong>čestná úloha</strong> — vyvenčiť Merlina! 🦴
+            Napíš nám svoje meno a úloha je oficiálne tvoja.
+          </p>
+          <form class="merlin-reward__form" @submit.prevent="claimMerlinReward">
+            <label class="form-field">
+              <span class="form-label">Tvoje meno</span>
+              <input type="text" v-model="merlinReward.name" required placeholder="Ján Novák" />
+            </label>
+            <button type="submit" class="btn btn--primary btn--lg merlin-reward__submit">Nárokovať odmenu 🐾</button>
+          </form>
+        </template>
+
+        <div v-else class="merlin-reward-done">
+          <div class="merlin-reward-done__icon">🦴</div>
+          <h3 class="modal__title">Ďakujeme, {{ merlinReward.name }}!</h3>
+          <p class="modal__desc">Merlin sa už teší na spoločnú prechádzku. 🐕</p>
+          <button class="btn btn--ghost" @click="closeMerlinReward">Zavrieť</button>
+        </div>
       </div>
     </div>
 

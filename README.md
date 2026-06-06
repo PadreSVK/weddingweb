@@ -84,17 +84,29 @@ In `config.json`, `story.chapters` has 4 chapters. You set the path to each phot
 
 **Drop photos into `assets/photos/`** (recommended format: JPG 4:5, at least 800 px wide). If a photo is missing, an emoji placeholder is shown — the page won't break.
 
-### 5. RSVP — where responses go
+### 5. RSVP & submissions — where responses go
 
-Currently `rsvp.endpoint` is empty, so after submitting the form:
-1. Copies the filled-in data to the clipboard
-2. Opens the mail client with pre-filled text
+All guest submissions (the RSVP form **and** the Merlin easter-egg reward) flow
+through one engine, configured in the `submissions` block:
 
-**Better options (pick one):**
+```json
+"submissions": {
+  "endpoint": "",
+  "email": "petra.patrik@example.com"
+}
+```
+
+- **`endpoint`** — when set, submissions are `POST`ed there as JSON (each payload
+  has a `type` field: `"rsvp"` or `"merlin-reward"`).
+- **`email`** — used by the fallback when no endpoint is set: the page copies a
+  readable summary to the clipboard and opens a pre-filled `mailto:` draft to this
+  address. Leave both empty and it still works (mailto with no recipient).
+
+**Endpoint options (pick one):**
 
 **A) Formspree (simplest, free):**
 - Sign up at formspree.io, create a form, get an endpoint URL
-- Add it to `config.json`: `"endpoint": "https://formspree.io/f/yourcode"`
+- Set `"endpoint": "https://formspree.io/f/yourcode"`
 
 **B) Web3Forms (alternative, also free):**
 - web3forms.com → access key

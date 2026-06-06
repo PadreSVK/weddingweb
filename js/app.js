@@ -60,6 +60,9 @@ createApp({
       'Merlin je oficiálne svedok — bude mať na svadbe motýlika.',
     ];
 
+    // Merlin reward — claimed after finding all three
+    const merlinReward = reactive({ open: false, name: '', sent: false });
+
     // ------------------------------------------------------------
     // CONFIG LOAD
     // 1) Try the inline fallback (#wedding-config-fallback) — works even on file://
@@ -145,41 +148,57 @@ createApp({
     }
 
     // ------------------------------------------------------------
-    // RSVP SUBMIT
+    // SUBMISSION ENGINE
+    // One pipeline for every guest submission (RSVP, easter-egg reward…).
+    // Today: POST to config.submissions.endpoint when set, otherwise fall
+    // back to a mailto: draft (+ clipboard copy). Plug in a real endpoint
+    // later and every caller starts using it with no further changes.
     // ------------------------------------------------------------
-    async function submitRsvp() {
-      const endpoint = config.value.rsvp.endpoint;
-      const payload = { ...rsvp, submittedAt: new Date().toISOString() };
+    async function submitEntry({ type, subject, summary, data }) {
+      const sub = (config.value && config.value.submissions) || {};
+      const endpoint = sub.endpoint || '';
+      const payload = { type, ...data, submittedAt: new Date().toISOString() };
 
       if (endpoint) {
-        try {
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          rsvpSent.value = true;
-        } catch (err) {
-          console.error('RSVP submit failed:', err);
-          alert('Niečo sa pokazilo pri odosielaní. Skúste neskôr alebo nám napíšte.');
-        }
-      } else {
-        const summary = formatRsvpForEmail(payload);
-        try { await navigator.clipboard.writeText(summary); } catch (e) {}
-        const subject = encodeURIComponent('RSVP - Svadba ' + (rsvp.name || ''));
-        const body = encodeURIComponent(summary);
-        window.location.href = `mailto:?subject=${subject}&body=${body}`;
-        rsvpSent.value = true;
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return { via: 'endpoint' };
       }
 
-      setTimeout(() => {
+      // Fallback: copy a readable summary, then open a pre-filled mail draft.
+      try { await navigator.clipboard.writeText(summary); } catch (e) {}
+      const to = sub.email || '';
+      const query = `subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary)}`;
+      window.location.href = `mailto:${to}?${query}`;
+      return { via: 'mailto' };
+    }
+
+    // ------------------------------------------------------------
+    // RSVP
+    // ------------------------------------------------------------
+    async function submitRsvp() {
+      const data = { ...rsvp };
+      try {
+        await submitEntry({
+          type: 'rsvp',
+          subject: 'RSVP - Svadba ' + (rsvp.name || ''),
+          summary: formatRsvpForEmail(data),
+          data,
+        });
+        rsvpSent.value = true;
         Object.assign(rsvp, {
           name: '', email: '', attending: '', adults: 1, children: 0,
           vegan: false, vegetarian: false, glutenFree: false,
           allergies: '', accommodation: '', message: '',
         });
-      }, 300);
+      } catch (err) {
+        console.error('RSVP submit failed:', err);
+        alert('Niečo sa pokazilo pri odosielaní. Skúste neskôr alebo nám napíšte.');
+      }
     }
 
     function formatRsvpForEmail(p) {
@@ -308,18 +327,51 @@ createApp({
 
     // ------------------------------------------------------------
     // MERLIN HIDE & SEEK
+    // Find all three, then claim the "reward" — the honour of walking
+    // the dog. The claim is sent through the shared submission engine.
     // ------------------------------------------------------------
+    const MERLIN_TOTAL = 3;
+
     function findMerlin(id) {
       if (merlinFound.value.includes(id)) return;
       merlinFound.value.push(id);
       merlinNotification.value = { id };
       setTimeout(() => { merlinNotification.value = null; }, 4000);
 
-      if (merlinFound.value.length === 3) {
-        setTimeout(() => {
-          alert('🎉 Našiel si všetkých troch Merlinov! Ďakujeme za hru — ako odmena ti dáme extra objatie psa na svadbe. 🐕');
-        }, 4500);
+      if (merlinFound.value.length === MERLIN_TOTAL) {
+        setTimeout(() => { merlinReward.open = true; }, 1500);
       }
+    }
+
+    function closeMerlinReward() {
+      merlinReward.open = false;
+    }
+
+    async function claimMerlinReward() {
+      const name = (merlinReward.name || '').trim();
+      if (!name) return;
+      try {
+        await submitEntry({
+          type: 'merlin-reward',
+          subject: 'Merlin Hide & Seek — ' + name,
+          summary: formatMerlinReward(name),
+          data: { name, found: merlinFound.value.length, reward: 'Vyvenčiť Merlina' },
+        });
+        merlinReward.sent = true;
+      } catch (err) {
+        console.error('Merlin reward submit failed:', err);
+        alert('Niečo sa pokazilo. Skús to znova.');
+      }
+    }
+
+    function formatMerlinReward(name) {
+      return [
+        'Merlin Hide & Seek 🐕',
+        '=====================================',
+        `Hráč: ${name}`,
+        `Našiel: ${MERLIN_TOTAL} / ${MERLIN_TOTAL} Merlinov`,
+        'Odmena: čestná úloha vyvenčiť Merlina 🦴',
+      ].join('\n');
     }
 
     // ------------------------------------------------------------
@@ -333,6 +385,7 @@ createApp({
       qrModal, qrSvg, openQrModal, closeQrModal,
       quiz, startQuiz, answerQuiz, quizOptionClass, nextQuestion, restartQuiz,
       merlinFound, merlinNotification, merlinFunFacts, findMerlin,
+      merlinReward, claimMerlinReward, closeMerlinReward,
       scrollTo, getChapterEmoji,
     };
   },
@@ -349,7 +402,8 @@ function emptyConfig() {
     },
     accommodation: { intro: '', options: [] },
     story: { intro: '', chapters: [] },
-    rsvp: { endpoint: '', deadlineDisplay: '', intro: '' },
+    rsvp: { deadlineDisplay: '', intro: '' },
+    submissions: { endpoint: '', email: '' },
     gifts: {
       intro: '', items: [],
       payment: { iban: '', beneficiaryName: '', bic: '', currency: 'EUR' },

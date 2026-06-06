@@ -19,7 +19,7 @@
   --color-cream-deep:   #e7ddca;
   --color-sage:         #7b8c7c;
   --color-sage-deep:    #5f6e5e;
-  --color-sage-light:   #e3e6dc;  /* soft sage-cream section background */
+  --color-sage-light:   #e7e3d2;  /* warm soft-sage section background (no blue cast) */
   --color-terracotta:   #7b3820;  /* rust accent */
   --color-terracotta-soft: #a85f43;
   --color-stone:        #382711;  /* primary dark brown (headings) */
@@ -1190,6 +1190,14 @@ body {
   text-align: center;
   font-style: italic;
 }
+
+/* ===== MERLIN REWARD MODAL ===== */
+
+.merlin-reward__form { margin-top: 0.5rem; }
+.merlin-reward__submit { width: 100%; margin-top: 1.25rem; }
+.merlin-reward-done { text-align: center; }
+.merlin-reward-done__icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.merlin-reward-done .modal__title { padding-right: 0; }
 
 /* ===== QUIZ ===== */
 
