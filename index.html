@@ -210,7 +210,7 @@
         <a href="#uvod" class="nav__logo" @click="scrollTo('uvod', $event)">
           <span class="logo-mark">{{ config.couple.bride.charAt(0) }}&amp;{{ config.couple.groom.charAt(0) }}</span>
         </a>
-        <button class="nav__toggle" @click="menuOpen = !menuOpen" aria-label="Menu">
+        <button class="nav__toggle" :class="{ 'nav__toggle--open': menuOpen }" @click="menuOpen = !menuOpen" :aria-label="menuOpen ? 'Zavrieť menu' : 'Otvoriť menu'" :aria-expanded="menuOpen">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav__list" :class="{ 'nav__list--open': menuOpen }">

@@ -156,11 +156,15 @@ body {
 .nav__toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  /* 44×44 minimum touch target */
+  width: 44px;
+  height: 44px;
 }
 
 .nav__toggle span {
@@ -169,6 +173,11 @@ body {
   background: var(--color-stone);
   transition: all 0.3s var(--ease);
 }
+
+/* Hamburger morphs into an X when the menu is open */
+.nav__toggle--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__toggle--open span:nth-child(2) { opacity: 0; }
+.nav__toggle--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ===== HERO ===== */
 
@@ -1306,14 +1315,15 @@ body {
     right: 1.5rem;
     background: var(--color-cream);
     flex-direction: column;
-    padding: 1.5rem;
+    gap: 0.25rem;
+    padding: 0.75rem 1.25rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow-strong);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
     transition: all 0.25s var(--ease);
-    min-width: 200px;
+    min-width: 210px;
   }
 
   .nav__list--open {
@@ -1322,20 +1332,61 @@ body {
     transform: translateY(0);
   }
 
-  /* Hero: artwork as a soft backdrop, content centred over a cream veil */
-  .hero { justify-content: center; }
-
-  .hero__bg { background-position: 30% center; }
-
-  .hero__bg::after {
-    background: linear-gradient(0deg,
-      var(--color-cream) 0%,
-      rgba(243, 238, 226, 0.78) 38%,
-      rgba(243, 238, 226, 0.5) 70%,
-      rgba(243, 238, 226, 0.35) 100%);
+  /* Roomier tap targets in the dropdown */
+  .nav__list a {
+    display: block;
+    padding: 0.7rem 0.25rem;
+    font-size: 1.2rem;
+    text-shadow: none;
   }
 
-  .hero__content { margin-right: 0; }
+  /* Mobile hero: the artwork sits behind a dark scrim so the light text
+     stays legible over both the dark tree and the cream sky. (On desktop
+     the names sit on the cream right-hand side, so dark text + a cream
+     wash is used there instead.) */
+  .hero { justify-content: center; }
+
+  .hero__bg { background-position: 38% center; }
+
+  .hero__bg::after {
+    background: linear-gradient(180deg,
+      rgba(45, 30, 12, 0.66) 0%,
+      rgba(45, 30, 12, 0.54) 42%,
+      rgba(45, 30, 12, 0.64) 74%,
+      rgba(45, 30, 12, 0.88) 100%);
+  }
+
+  .hero__content {
+    margin-right: 0;
+    max-width: 440px;
+  }
+
+  /* Light text overlay on the darkened artwork */
+  .hero__date {
+    color: rgba(243, 238, 226, 0.92);
+    letter-spacing: 0.25em;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero__names {
+    color: var(--color-cream);
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  }
+
+  .hero__amp { color: var(--color-gold); }
+
+  .hero__subtitle {
+    color: rgba(243, 238, 226, 0.88);
+    font-size: 1.2rem;
+    margin-bottom: 2.25rem;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .scroll-hint span { color: rgba(243, 238, 226, 0.85); }
+  .scroll-hint__line { background: rgba(243, 238, 226, 0.75); }
 
   .section { padding: 4rem 0; }
 
@@ -1349,7 +1400,11 @@ body {
   .venue__details, .form-row { grid-template-columns: 1fr; }
 
   .countdown { gap: 0.5rem; }
-  .countdown__cell { min-width: 70px; padding: 0.75rem 0.85rem; }
+  .countdown__cell {
+    min-width: 66px;
+    padding: 0.7rem 0.75rem;
+    background: rgba(243, 238, 226, 0.9);
+  }
   .countdown__num  { font-size: 1.6rem; }
 
   .rsvp-form { padding: 2rem 1.5rem; }
