@@ -439,16 +439,6 @@ body {
   box-shadow: 0 8px 25px rgba(187, 138, 68, 0.4);
 }
 
-.link-btn {
-  background: none;
-  border: none;
-  color: var(--color-terracotta);
-  cursor: pointer;
-  font-family: inherit;
-  text-decoration: underline;
-  font-size: 0.85rem;
-}
-
 /* ===== SECTIONS ===== */
 
 .section {
@@ -998,73 +988,6 @@ body {
   margin-bottom: 2rem;
 }
 
-/* ===== GIFTS ===== */
-
-.gifts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.gift {
-  background: rgba(255, 252, 245, 0.9);
-  padding: 2.5rem 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
-}
-
-.gift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-strong);
-}
-
-.gift__icon {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-
-.gift__title {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 600;
-  color: var(--color-stone);
-}
-
-.gift__desc {
-  color: var(--color-stone-light);
-  flex: 1;
-}
-
-.gift__amount {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.05rem;
-  color: var(--color-terracotta);
-  padding: 0.5rem 0;
-}
-
-.gifts__note {
-  margin-top: 3rem;
-  font-size: 0.9rem;
-  color: var(--color-stone-light);
-  background: rgba(123, 56, 32, 0.08);
-  padding: 1rem 1.25rem;
-  border-left: 3px solid var(--color-terracotta);
-  border-radius: 0 var(--radius) var(--radius) 0;
-}
-
-.gifts__note code {
-  background: rgba(45, 30, 12, 0.1);
-  padding: 2px 6px;
-  border-radius: 3px;
-}
-
 /* ===== MODAL ===== */
 
 .modal {
@@ -1138,66 +1061,6 @@ body {
   color: var(--color-stone-light);
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-}
-
-.qr-amount-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fffdf8;
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--color-cream-deep);
-  margin-bottom: 1rem;
-}
-
-.qr-canvas-wrap {
-  background: #ffffff;
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  display: flex;
-  justify-content: center;
-  margin: 1.5rem 0 1rem;
-  box-shadow: var(--shadow-soft);
-}
-
-.qr-canvas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.qr-canvas svg, .qr-canvas img {
-  width: 220px !important;
-  height: 220px !important;
-  display: block;
-}
-
-.qr-details {
-  background: rgba(255, 252, 245, 0.6);
-  padding: 1rem;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1rem;
-}
-
-.qr-details span { color: var(--color-stone-light); }
-.qr-details code {
-  background: rgba(45, 30, 12, 0.08);
-  padding: 2px 6px;
-  border-radius: 3px;
-  color: var(--color-stone);
-  font-size: 0.95em;
-}
-
-.qr-hint {
-  font-size: 0.8rem;
-  color: var(--color-stone-light);
-  text-align: center;
-  font-style: italic;
 }
 
 /* ===== MERLIN REWARD MODAL ===== */

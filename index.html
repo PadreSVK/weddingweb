@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <script src="https://unpkg.com/vue@3.4.27/dist/vue.global.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
   <!-- FALLBACK CONFIG (synced with config.json via sync-config.js) -->
   <script type="application/json" id="wedding-config-fallback">
@@ -130,58 +129,6 @@
     "suggestionsEnabled": true,
     "suggestionsHint": "Návrhy môžeš poslať aj v RSVP formulári v poli 'Odkaz pre nás'."
   },
-  "gifts": {
-    "intro": "Najväčším darom je vaša prítomnosť. Ale ak by ste nám predsa len chceli prispieť na náš spoločný začiatok, tu je niekoľko nápadov - každý si môže vybrať podľa svojich možností.",
-    "payment": {
-      "iban": "SK00 0000 0000 0000 0000 0000",
-      "beneficiaryName": "Meno Priezvisko",
-      "bic": "",
-      "currency": "EUR"
-    },
-    "items": [
-      {
-        "id": 1,
-        "title": "Na dvere",
-        "description": "Dverí na byte ešte nemáme všetky - každé euro nás priblíži k tomu, aby sme mohli niekomu konečne otvoriť :)",
-        "amount": 50,
-        "variableSymbol": "1001",
-        "icon": "🚪"
-      },
-      {
-        "id": 2,
-        "title": "Na nové stropy",
-        "description": "Stropy ešte len budú - pomôžte nám pozerať sa hore, namiesto smerom k nebu cez krokvy.",
-        "amount": 100,
-        "variableSymbol": "1002",
-        "icon": "🏠"
-      },
-      {
-        "id": 3,
-        "title": "Na svadobnú cestu",
-        "description": "Snívame o ceste po Škótsku - hrady, hmla, prastaré lesy. Pomôžte nám tam dostať sa!",
-        "amount": 75,
-        "variableSymbol": "1003",
-        "icon": "✈️"
-      },
-      {
-        "id": 4,
-        "title": "Na maškrtu pre Merlina",
-        "description": "Merlin si zaslúži tiež niečo extra k svadbe svojich ľudí. Pamlsky, hračky, možno nový pelech :)",
-        "amount": 20,
-        "variableSymbol": "1004",
-        "icon": "🐕"
-      },
-      {
-        "id": 5,
-        "title": "Voľná suma",
-        "description": "Ak si chcete vybrať vlastnú sumu - kliknite na 'Generovať QR' a zadajte si koľko len chcete.",
-        "amount": 0,
-        "variableSymbol": "1999",
-        "icon": "✨",
-        "customAmount": true
-      }
-    ]
-  },
   "easterEgg": {
     "quiz": {
       "title": "Always",
@@ -250,10 +197,6 @@
       {
         "id": "rsvp",
         "label": "RSVP"
-      },
-      {
-        "id": "darceky",
-        "label": "Darčeky"
       }
     ]
   }
@@ -595,67 +538,6 @@
         </div>
       </div>
     </section>
-
-    <section id="darceky" class="section section--cream">
-      <div class="container">
-        <div class="section__heading">
-          <span class="section__eyebrow">Ak by ste chceli</span>
-          <h2 class="section__title">Darčeky</h2>
-          <div class="ornament"></div>
-          <p class="section__lead">{{ config.gifts.intro }}</p>
-        </div>
-
-        <div class="gifts">
-          <article v-for="gift in config.gifts.items" :key="gift.id" class="gift">
-            <div class="gift__icon">{{ gift.icon }}</div>
-            <h3 class="gift__title">{{ gift.title }}</h3>
-            <p class="gift__desc">{{ gift.description }}</p>
-            <div class="gift__amount" v-if="!gift.customAmount">Návrh: <strong>{{ gift.amount }} €</strong></div>
-            <div class="gift__amount" v-else>Vlastná suma</div>
-            <button class="btn btn--ghost" @click="openQrModal(gift)">Generovať QR platbu</button>
-          </article>
-        </div>
-
-        <p class="gifts__note" v-if="!isIbanFilled">
-          <strong>Dev note:</strong> For working QR codes, fill in the IBAN and beneficiary name in <code>config.json</code> under <code>gifts.payment</code>.
-        </p>
-      </div>
-    </section>
-
-    <div v-if="qrModal.open" class="modal" @click.self="closeQrModal">
-      <div class="modal__inner">
-        <button class="modal__close" @click="closeQrModal" aria-label="Zavrieť">×</button>
-        <h3 class="modal__title">{{ qrModal.gift.icon }} {{ qrModal.gift.title }}</h3>
-        <p class="modal__desc">{{ qrModal.gift.description }}</p>
-
-        <div class="form-field" v-if="qrModal.gift.customAmount || qrModal.editAmount">
-          <span class="form-label">Suma (€)</span>
-          <input type="number" v-model.number="qrModal.amount" min="1" step="1" />
-        </div>
-        <div v-else class="qr-amount-row">
-          <span>Suma: <strong>{{ qrModal.amount }} €</strong></span>
-          <button class="link-btn" @click="qrModal.editAmount = true">zmeniť</button>
-        </div>
-
-        <div class="form-field">
-          <span class="form-label">Správa pre nás (voliteľné)</span>
-          <input type="text" v-model="qrModal.message" maxlength="35" placeholder="napr. Veľa lásky!" />
-        </div>
-
-        <div class="qr-canvas-wrap">
-          <div class="qr-canvas" v-html="qrSvg"></div>
-        </div>
-
-        <div class="qr-details">
-          <div><span>IBAN:</span> <code>{{ config.gifts.payment.iban }}</code></div>
-          <div><span>Príjemca:</span> <code>{{ config.gifts.payment.beneficiaryName }}</code></div>
-          <div><span>Variabilný symbol:</span> <code>{{ qrModal.gift.variableSymbol }}</code></div>
-          <div><span>Suma:</span> <code>{{ qrModal.amount }} €</code></div>
-        </div>
-
-        <p class="qr-hint">Naskenuj QR kód v mobilnej bankovej aplikácii (podporuje EPC QR — pracuje vo všetkých SK/EU bankách).</p>
-      </div>
-    </div>
 
     <div v-if="merlinReward.open" class="modal" @click.self="closeMerlinReward">
       <div class="modal__inner">

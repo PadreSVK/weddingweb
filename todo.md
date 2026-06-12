@@ -36,15 +36,6 @@ Both run through the shared `submissions` block in `config.json`.
       (payloads carry a `type`: `"rsvp"` or `"merlin-reward"`).
 - [ ] Send a test RSVP after wiring it up and confirm it arrives.
 
-## 🎁 Gifts — QR payments
-
-QR codes won't be valid until the payment details are real (`gifts.payment`):
-
-- [ ] `gifts.payment.iban` — replace placeholder `SK00 0000 0000 0000 0000 0000` with the real IBAN.
-- [ ] `gifts.payment.beneficiaryName` — replace `Meno Priezvisko` with the real account holder.
-- [ ] `gifts.payment.bic` — optional; add if your bank needs it.
-- [ ] Scan one generated QR with a banking app to confirm the amount, VS, and IBAN are correct.
-
 ## 🚌 Transport
 
 - [ ] `transport.bus.stops[*].time` — all times are `—`. Fill in departure times per stop.
@@ -71,7 +62,6 @@ QR codes won't be valid until the payment details are real (`gifts.payment`):
 - [ ] Countdown shows the correct time to 16 Oct 2026, 15:00.
 - [ ] All nav links scroll to the right sections on mobile and desktop.
 - [ ] RSVP submit works end-to-end.
-- [ ] At least one gift QR scans correctly in a real banking app.
 - [ ] No "Dev note" hints remain visible (means all config is filled in).
 - [ ] Test on a phone (layout is tuned for 360px+).
 

@@ -15,7 +15,6 @@ Style: BOHO + Tatra/Vršatec nature + subtle HP references ("Always", the Lily &
 | **Our story** | Configurable chapters with photos (How we met, Our travels, Merlin, Always) |
 | **Accommodation** | Cards with info, price and a link |
 | **RSVP** | Name, e-mail, number of adults/children, vegan/vegetarian/gluten-free, allergies, accommodation, message |
-| **Gifts** | Configurable list with a **QR generator** (EPC QR — SEPA, works in all SK/EU banking apps) |
 | **Easter egg: HP quiz "Always"** | Mini quiz that reveals a secret message |
 | **Easter egg: Hidden Merlin** | 3× scattered across the page — click to discover a fun fact 🐕 |
 
@@ -115,41 +114,7 @@ through one engine, configured in the `submissions` block:
 **C) Google Apps Script:**
 - Google Sheet → Extensions → Apps Script → `doPost(e)` handler → Deploy as Web App "Anyone" → URL into the config
 
-### 6. Gifts and QR payments
-
-In `gifts.payment`, fill in the **IBAN** and **beneficiary name**:
-
-```json
-"gifts": {
-  "payment": {
-    "iban": "SK12 3456 7890 1234 5678 9012",
-    "beneficiaryName": "Petra Svikruhová",
-    "bic": "",
-    "currency": "EUR"
-  },
-  ...
-}
-```
-
-**Individual gifts** in `gifts.items`:
-
-```json
-{
-  "id": 1,
-  "title": "Na dvere",
-  "description": "...",
-  "amount": 50,
-  "variableSymbol": "1001",
-  "icon": "🚪",
-  "customAmount": false
-}
-```
-
-To add another gift = just copy one and change `id`, `variableSymbol`, `title`...
-
-**QR format:** EPC069-12 (SEPA Credit Transfer) — the European standard. Works with VÚB, Tatra Banka, SLSP, mBank, ČSOB and basically all SK/EU banking apps. The variable symbol is carried as part of the unstructured reference (`/VS1234 optional message`).
-
-### 7. Quiz / easter egg
+### 6. Quiz / easter egg
 
 In `easterEgg.quiz.questions` you can add/edit questions. Each has `q` (text), `options` (2-4 answers) and `correct` (index of the correct one, 0-based).
 
@@ -181,7 +146,7 @@ Notes:
 - A **`noindex, nofollow`** meta tag tells search engines not to index the page.
 - **`robots.txt`** disallows all crawlers. Because the site is on a custom domain
   (`svikruhovci.sk`), `robots.txt` is served from the domain root and is honored.
-- Honest caveat: this is a static site, so the data (names, IBAN, …) still lives in the
+- Honest caveat: this is a static site, so the data (names, address, …) still lives in the
   page source — `noindex`/`robots` stop it appearing in search and deter polite bots, but
   nothing can fully hide client-side data on a public page. Don't put true secrets here.
 
@@ -190,7 +155,7 @@ Notes:
 ```
 weddingweb/
 ├── index.html              # Main HTML
-├── config.json             # ⭐ All configuration (names, date, gifts…)
+├── config.json             # ⭐ All configuration (names, date, story…)
 ├── sync-config.js          # Syncs the inline config in HTML with config.json
 ├── css/styles.css          # All styles
 ├── js/app.js               # Vue 3 application
@@ -223,7 +188,7 @@ Let me know which of these make sense and I'll add them.
 
 ## 🔧 Development notes
 
-- No `npm install` needed — Vue 3 and qrcode-generator are pulled from a CDN.
+- No `npm install` needed — Vue 3 is pulled from a CDN.
 - The site is 100% static and optimized for speed (font preloading, minimal CSS).
 - Responsive down to mobile (tested 360px+).
 - No `localStorage` — no tracking cookies, no GDPR banner needed.

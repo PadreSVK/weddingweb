@@ -1,9 +1,9 @@
 /* =================================================================
    OUR WEDDING — Vue 3 application
-   - Countdown, RSVP, EPC-QR generator for gifts, HP quiz, Merlin easter egg
+   - Countdown, RSVP, HP quiz, Merlin easter egg
    ================================================================= */
 
-const { createApp, ref, reactive, computed, onMounted, onUnmounted, watch } = Vue;
+const { createApp, ref, reactive, computed, onMounted, onUnmounted } = Vue;
 
 createApp({
   setup() {
@@ -31,16 +31,6 @@ createApp({
       message: '',
     });
     const rsvpSent = ref(false);
-
-    // QR modal
-    const qrModal = reactive({
-      open: false,
-      gift: null,
-      amount: 0,
-      message: '',
-      editAmount: false,
-    });
-    const qrSvg = ref('');
 
     // Quiz
     const quiz = reactive({
@@ -232,65 +222,6 @@ createApp({
     }
 
     // ------------------------------------------------------------
-    // QR — EPC069-12 (SEPA Credit Transfer)
-    // ------------------------------------------------------------
-    function openQrModal(gift) {
-      qrModal.gift = gift;
-      qrModal.amount = gift.customAmount ? 50 : gift.amount;
-      qrModal.message = '';
-      qrModal.editAmount = !!gift.customAmount;
-      qrModal.open = true;
-      setTimeout(generateQr, 50);
-    }
-
-    function closeQrModal() {
-      qrModal.open = false;
-      qrModal.gift = null;
-      qrSvg.value = '';
-    }
-
-    watch(
-      () => [qrModal.amount, qrModal.message, qrModal.open],
-      () => { if (qrModal.open) generateQr(); }
-    );
-
-    function generateQr() {
-      if (!config.value || !qrModal.gift) return;
-      const pay = config.value.gifts.payment;
-      const iban = (pay.iban || '').replace(/\s+/g, '');
-      const name = pay.beneficiaryName || '';
-      const bic  = pay.bic || '';
-      const vs   = qrModal.gift.variableSymbol || '';
-      const amt  = Number(qrModal.amount) > 0 ? `EUR${Number(qrModal.amount).toFixed(2)}` : '';
-      const userMsg = (qrModal.message || '').trim();
-      const unstructuredRef = userMsg
-        ? `/VS${vs} ${userMsg}`.substring(0, 140)
-        : `/VS${vs}`;
-
-      const payload = [
-        'BCD', '002', '1', 'SCT',
-        bic, name, iban, amt,
-        '', '', unstructuredRef, '',
-      ].join('\n');
-
-      try {
-        const qr = qrcode(0, 'M');
-        qr.addData(payload);
-        qr.make();
-        qrSvg.value = qr.createSvgTag({ scalable: true, margin: 1 });
-      } catch (err) {
-        console.error('QR generation failed:', err);
-        qrSvg.value = '<p style="color:#c97b5f">Chyba pri generovaní QR.</p>';
-      }
-    }
-
-    const isIbanFilled = computed(() => {
-      if (!config.value) return false;
-      const iban = (config.value.gifts.payment.iban || '').replace(/\s+/g, '');
-      return iban && !iban.startsWith('SK000000');
-    });
-
-    // ------------------------------------------------------------
     // QUIZ
     // ------------------------------------------------------------
     function startQuiz() {
@@ -390,9 +321,8 @@ createApp({
     return {
       config: computed(() => config.value || emptyConfig()),
       loaded, scrolled, menuOpen, now,
-      countdown, currentQuestion, isIbanFilled,
+      countdown, currentQuestion,
       rsvp, rsvpSent, submitRsvp,
-      qrModal, qrSvg, openQrModal, closeQrModal,
       quiz, startQuiz, answerQuiz, quizOptionClass, nextQuestion, restartQuiz,
       merlinFound, merlinNotification, merlinFunFacts, findMerlin,
       merlinReward, claimMerlinReward, closeMerlinReward,
@@ -414,10 +344,6 @@ function emptyConfig() {
     story: { intro: '', chapters: [] },
     rsvp: { deadlineDisplay: '', intro: '' },
     submissions: { endpoint: '', email: '' },
-    gifts: {
-      intro: '', items: [],
-      payment: { iban: '', beneficiaryName: '', bic: '', currency: 'EUR' },
-    },
     easterEgg: { quiz: { title: '', intro: '', questions: [], reward: '' } },
     ui: { navItems: [] },
   };

@@ -92,58 +92,6 @@
     "suggestionsEnabled": true,
     "suggestionsHint": "Návrhy môžeš poslať aj v RSVP formulári v poli 'Odkaz pre nás'."
   },
-  "gifts": {
-    "intro": "Najväčším darom je vaša prítomnosť. Ale ak by ste nám predsa len chceli prispieť na náš spoločný začiatok, tu je niekoľko nápadov - každý si môže vybrať podľa svojich možností.",
-    "payment": {
-      "iban": "SK00 0000 0000 0000 0000 0000",
-      "beneficiaryName": "Meno Priezvisko",
-      "bic": "",
-      "currency": "EUR"
-    },
-    "items": [
-      {
-        "id": 1,
-        "title": "Na dvere",
-        "description": "Dverí na byte ešte nemáme všetky - každé euro nás priblíži k tomu, aby sme mohli niekomu konečne otvoriť :)",
-        "amount": 50,
-        "variableSymbol": "1001",
-        "icon": "🚪"
-      },
-      {
-        "id": 2,
-        "title": "Na nové stropy",
-        "description": "Stropy ešte len budú - pomôžte nám pozerať sa hore, namiesto smerom k nebu cez krokvy.",
-        "amount": 100,
-        "variableSymbol": "1002",
-        "icon": "🏠"
-      },
-      {
-        "id": 3,
-        "title": "Na svadobnú cestu",
-        "description": "Snívame o ceste po Škótsku - hrady, hmla, prastaré lesy. Pomôžte nám tam dostať sa!",
-        "amount": 75,
-        "variableSymbol": "1003",
-        "icon": "✈️"
-      },
-      {
-        "id": 4,
-        "title": "Na maškrtu pre Merlina",
-        "description": "Merlin si zaslúži tiež niečo extra k svadbe svojich ľudí. Pamlsky, hračky, možno nový pelech :)",
-        "amount": 20,
-        "variableSymbol": "1004",
-        "icon": "🐕"
-      },
-      {
-        "id": 5,
-        "title": "Voľná suma",
-        "description": "Ak si chcete vybrať vlastnú sumu - kliknite na 'Generovať QR' a zadajte si koľko len chcete.",
-        "amount": 0,
-        "variableSymbol": "1999",
-        "icon": "✨",
-        "customAmount": true
-      }
-    ]
-  },
   "easterEgg": {
     "quiz": {
       "title": "Always",
@@ -212,10 +160,6 @@
       {
         "id": "rsvp",
         "label": "RSVP"
-      },
-      {
-        "id": "darceky",
-        "label": "Darčeky"
       }
     ]
   }
