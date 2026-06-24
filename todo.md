@@ -39,7 +39,7 @@ Both run through the shared `submissions` block in `config.json`.
 ## 🚌 Transport
 
 - [ ] `transport.bus.stops[*].time` — all times are `—`. Fill in departure times per stop.
-- [ ] `transport.bus.returnNote` — add the return-trip time.
+- [x] `transport.bus.returnNote` — return trip handled by private taxi ("Odvoz domov").
 - [ ] `transport.bus.description` — currently says times come "in August"; update once known.
 - [ ] Remove the internal `transport.todo` field once all the above are done
       (it shows as a "Dev note" on the page while present).
