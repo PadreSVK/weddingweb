@@ -467,6 +467,14 @@
         </div>
 
         <form v-if="!rsvpSent" class="rsvp-form" @submit.prevent="submitRsvp">
+          <!-- Honeypot: anti-spam trap. Hidden off-screen, not focusable, hidden from
+               screen readers. Real guests never fill it; bots do, and the API silently
+               drops any submission where it is non-empty. -->
+          <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden;">
+            <label>Website
+              <input v-model="rsvp.website" type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
+          </div>
           <div class="form-row">
             <label class="form-field">
               <span class="form-label">Meno a priezvisko *</span>

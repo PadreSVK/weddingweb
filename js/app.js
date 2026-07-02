@@ -29,6 +29,8 @@ createApp({
       allergies: '',
       accommodation: '',
       message: '',
+      // Honeypot (anti-spam): hidden in the UI, must stay empty for real users.
+      website: '',
     });
     const rsvpSent = ref(false);
 
@@ -193,7 +195,7 @@ createApp({
         Object.assign(rsvp, {
           name: '', email: '', attending: '', adults: 1, children: 0,
           vegan: false, vegetarian: false, glutenFree: false,
-          allergies: '', accommodation: '', message: '',
+          allergies: '', accommodation: '', message: '', website: '',
         });
       } catch (err) {
         console.error('RSVP submit failed:', err);
