@@ -1,0 +1,137 @@
+{
+  "_note": "Content config for the gated insiders' area (zasvateni.html). Loaded client-side by that page only, NOT baked into the public index.html. No secrets here — guest keys live hashed in the backend. Role descriptions marked with a trailing space in screenshots were truncated; review & edit the text freely.",
+  "apiBase": "https://weddingweb-api-1737.azurewebsites.net/api",
+  "login": {
+    "eyebrow": "Pre zasvätených",
+    "title": "Tajná zóna",
+    "intro": "Táto časť je len pre zasvätených. Zadaj svoje meno a kľúč, ktorý si dostal(a) od nás.",
+    "nameLabel": "Meno",
+    "keyLabel": "Kľúč",
+    "submit": "Vstúpiť",
+    "error": "Meno alebo kľúč nesedí. Skús to znova, alebo nám napíš."
+  },
+  "team": {
+    "eyebrow": "Organizačný tím",
+    "title": "Pridaj sa do tímu",
+    "intro": "Pridať sa do organizačného tímu znamená byť pri tom a pomôcť, aby bola svadba nezabudnuteľná.",
+    "perksTitle": "Čo tým získaš?",
+    "perks": [
+      "Pobyt na sústredení pre vyvolených.",
+      "Spravíš dobrý skutok a odľahčíš mladomanželom.",
+      "Pomôžeš zabezpečiť, že sa ľudia na svadbe nebudú nudiť (vrátane teba)."
+    ],
+    "responsibilitiesTitle": "Čo to obnáša?",
+    "responsibilities": [
+      "Budeš zasvätený do príprav svadby.",
+      "Budeš mať na starosti pár vecí (napr. vymýšľanie časti programu, zabezpečovanie niektorých vecí, pomoc s chystaním výzdoby v deň svadby alebo večer pred ňou, vyzdvihnutie koláčov v deň svadby, chystanie výslužiek v deň svadby a pod.).",
+      "Budeš môcť ovplyvniť mnoho vecí na svadbe, ktoré sú podľa teba podstatné, vhodné či vtipné."
+    ],
+    "joinLabel": "Áno, idem do toho! Pridať ma do tímu.",
+    "joinedText": "Si súčasťou tímu. Ďakujeme! 🤝"
+  },
+  "ideas": {
+    "eyebrow": "Nápady",
+    "title": "Máš nápad?",
+    "intro": "Zažil(a) si na inej svadbe niečo, čo ťa nadchlo? Napadá ti hra, miniaktivita alebo moment, ktorý by nemal chýbať ani na tej našej? Podeľ sa s nami.",
+    "placeholder": "Napr. fotokútik, kvíz o nás, spoločná hra, prekvapenie pre novomanželov...",
+    "submit": "Poslať nápad",
+    "thanks": "Ďakujeme za nápad! 💡"
+  },
+  "roles": {
+    "eyebrow": "Boj o vysnenú rolu",
+    "title": "Vyber si rolu",
+    "intro": "Každý zasvätený môže mať na svadbe svoju rolu. Niektoré sú pevne dané, o iné môžeš zabojovať a ďalšie si môžeš dokonca vymyslieť.",
+    "categories": {
+      "fixed": {
+        "title": "Pevné role",
+        "hint": "Tieto sú už rozdané a nemenia sa."
+      },
+      "mandatory": {
+        "title": "Povinné role",
+        "hint": "Musí ich niekto mať. Môžeš ich prevziať — prehodíš ich tak na seba."
+      },
+      "optional": {
+        "title": "Voľné role",
+        "hint": "Nemusia byť obsadené. Pokojne si vymysli aj vlastnú!"
+      }
+    },
+    "claimLabel": "Beriem si to",
+    "takeLabel": "Prevziať rolu",
+    "releaseLabel": "Uvoľniť",
+    "createLabel": "Vymysli si vlastnú rolu",
+    "createTitleLabel": "Názov roly",
+    "createDescLabel": "Čo daná rola obnáša (uvidíš len ty a mladomanželia)",
+    "list": [
+      {
+        "id": "oddavajuci",
+        "title": "Oddávajúci",
+        "category": "fixed",
+        "holder": "",
+        "description": "Vymysli ten najlepší oddávajúci prejav — vtipný, zahŕňajúci skutočné príhody s nami. Nech je z obradu zážitok."
+      },
+      {
+        "id": "svedok",
+        "title": "Svedok",
+        "category": "fixed",
+        "holder": "",
+        "description": "Popis asi nie je potrebný. Buď tam pre nás, pomôž s čím sa dá, a ak vidíš niečo nedoplnené, prilož ruku k dielu."
+      },
+      {
+        "id": "starejsi",
+        "title": "Starejší",
+        "category": "fixed",
+        "holder": "",
+        "description": "Ulievaj, vítaj, ulievaj, vtipkuj, ulievaj, postaraj sa, nech sa hostia nenudia a nech nič nechýba."
+      },
+      {
+        "id": "vencic",
+        "title": "Venčič",
+        "category": "mandatory",
+        "holder": "",
+        "description": ""
+      },
+      {
+        "id": "moderator",
+        "title": "Moderátor",
+        "category": "mandatory",
+        "holder": "",
+        "description": ""
+      },
+      {
+        "id": "zabavac",
+        "title": "Zabávač",
+        "category": "mandatory",
+        "holder": "",
+        "description": ""
+      },
+      {
+        "id": "parketovy-kral",
+        "title": "Parketový kráľ",
+        "category": "optional",
+        "holder": "",
+        "description": ""
+      },
+      {
+        "id": "vsadebol",
+        "title": "Všadebol",
+        "category": "optional",
+        "holder": "",
+        "description": ""
+      },
+      {
+        "id": "vylepsovak",
+        "title": "Vylepšovák",
+        "category": "optional",
+        "holder": "",
+        "description": "Buď na čo najviac fotkách — pokojne v úzadí, pokojne v popredí, akúkoľvek situáciu vieš vylepšiť."
+      },
+      {
+        "id": "porucnik",
+        "title": "Poručník",
+        "category": "optional",
+        "holder": "",
+        "description": "Doslova. Buď každému vždy po ruke — svadobčanom, svedkom, zvieratám, nám. Poručník vždy vie, čo treba."
+      }
+    ]
+  }
+}

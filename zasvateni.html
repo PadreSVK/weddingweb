@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pre zasvätених" />
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+  <title>Pre zasvätених</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italianno&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script src="https://unpkg.com/vue@3.4.27/dist/vue.global.prod.js"></script>
+
+  <style>
+    [v-cloak] { display: none; }
+
+    body { min-height: 100vh; }
+
+    /* top session bar */
+    .ins-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(243, 238, 226, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-cream-deep);
+    }
+    .ins-bar__who {
+      font-weight: 600;
+      color: var(--color-stone);
+    }
+    .btn--sm { padding: 0.5rem 1.1rem; font-size: 0.9rem; }
+
+    /* login / generic card */
+    .ins-card {
+      max-width: 460px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      background: rgba(255, 253, 248, 0.9);
+      padding: 2.5rem 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .ins-error {
+      color: var(--rust);
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* team perks / responsibilities */
+    .ins-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .ins-panel {
+      background: rgba(255, 253, 248, 0.85);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.75rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .ins-panel__title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-stone);
+      margin-bottom: 1rem;
+    }
+    .ins-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .ins-list li {
+      position: relative;
+      padding-left: 1.9rem;
+      color: var(--color-stone-light);
+      font-weight: 500;
+    }
+    .ins-list--perks li::before { content: '✨'; position: absolute; left: 0; }
+    .ins-list--resp  li::before { content: '•'; position: absolute; left: 0.5rem; color: var(--color-terracotta); font-size: 1.4rem; line-height: 1; }
+
+    /* join box */
+    .ins-join {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: center;
+    }
+    .ins-join__check {
+      font-size: 1.1rem;
+      color: var(--color-stone);
+      text-align: left;
+      align-items: flex-start;
+    }
+    .ins-joined {
+      text-align: center;
+    }
+    .ins-joined__icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    .ins-joined p { font-size: 1.2rem; font-weight: 600; color: var(--color-stone); }
+
+    .ins-soon {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--color-stone-light);
+    }
+
+    @media (max-width: 640px) {
+      .ins-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="insiders-app" v-cloak>
+    <!-- session bar -->
+    <div class="ins-bar" v-if="authed">
+      <span class="ins-bar__who">🔑 {{ session.name }}</span>
+      <button class="btn btn--ghost btn--sm" @click="logout">Odhlásiť</button>
+    </div>
+
+    <!-- content failed to load -->
+    <section class="section section--cream" v-if="loadError">
+      <div class="container container--narrow">
+        <p class="form-hint">Obsah sa nepodarilo načítať. Skús obnoviť stránku, alebo nám napíš.</p>
+      </div>
+    </section>
+
+    <template v-else-if="cfg">
+      <!-- LOGIN -->
+      <section class="section section--cream" v-if="!authed">
+        <div class="container container--narrow">
+          <div class="section__heading">
+            <span class="section__eyebrow">{{ cfg.login.eyebrow }}</span>
+            <h1 class="section__title">{{ cfg.login.title }}</h1>
+            <div class="ornament"></div>
+            <p class="section__lead">{{ cfg.login.intro }}</p>
+          </div>
+
+          <form class="ins-card" @submit.prevent="submitLogin">
+            <label class="form-field">
+              <span class="form-label">{{ cfg.login.nameLabel }}</span>
+              <input v-model="login.name" type="text" autocomplete="name" required />
+            </label>
+            <label class="form-field">
+              <span class="form-label">{{ cfg.login.keyLabel }}</span>
+              <input v-model="login.key" type="text" autocapitalize="characters" spellcheck="false" required placeholder="XXXX-XXXX-XXXX" />
+            </label>
+            <p class="ins-error" v-if="login.error">{{ login.error }}</p>
+            <button type="submit" class="btn btn--primary btn--lg" :disabled="login.busy">
+              {{ login.busy ? 'Overujem…' : cfg.login.submit }}
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- AUTHENTICATED -->
+      <template v-else>
+        <section class="section section--cream" id="tim">
+          <div class="container container--narrow">
+            <div class="section__heading">
+              <span class="section__eyebrow">{{ cfg.team.eyebrow }}</span>
+              <h1 class="section__title">{{ cfg.team.title }}</h1>
+              <div class="ornament"></div>
+              <p class="section__lead">{{ cfg.team.intro }}</p>
+            </div>
+
+            <div class="ins-cols">
+              <div class="ins-panel">
+                <h2 class="ins-panel__title">{{ cfg.team.perksTitle }}</h2>
+                <ul class="ins-list ins-list--perks">
+                  <li v-for="(p, i) in cfg.team.perks" :key="i">{{ p }}</li>
+                </ul>
+              </div>
+              <div class="ins-panel">
+                <h2 class="ins-panel__title">{{ cfg.team.responsibilitiesTitle }}</h2>
+                <ul class="ins-list ins-list--resp">
+                  <li v-for="(r, i) in cfg.team.responsibilities" :key="i">{{ r }}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ins-join">
+              <template v-if="!session.joinedTeam">
+                <label class="check ins-join__check">
+                  <input type="checkbox" v-model="joinChecked" />
+                  <span>{{ cfg.team.joinLabel }}</span>
+                </label>
+                <p class="ins-error" v-if="joinError">{{ joinError }}</p>
+                <button class="btn btn--primary btn--lg" :disabled="!joinChecked || joining" @click="joinTeam">
+                  {{ joining ? 'Pridávam…' : 'Potvrdiť' }}
+                </button>
+              </template>
+              <div v-else class="ins-joined">
+                <div class="ins-joined__icon">🤝</div>
+                <p>{{ cfg.team.joinedText }}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ideas + Roles arrive in later phases -->
+        <section class="section section--sage">
+          <div class="container container--narrow">
+            <p class="ins-soon">Čoskoro tu pribudnú <strong>nápady</strong> a <strong>boj o vysnenú rolu</strong>. ✨</p>
+          </div>
+        </section>
+      </template>
+    </template>
+  </div>
+
+  <script src="js/insiders.js"></script>
+</body>
+</html>
