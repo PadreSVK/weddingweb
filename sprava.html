@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Správa" />
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+  <title>Správa — pre mladomanželov</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italianno&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://unpkg.com/vue@3.4.27/dist/vue.global.prod.js"></script>
+
+  <style>
+    [v-cloak] { display: none; }
+    body { min-height: 100vh; }
+
+    .adm-bar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(243, 238, 226, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-cream-deep);
+    }
+    .adm-bar__who { font-weight: 600; color: var(--color-stone); }
+    .btn--sm { padding: 0.5rem 1.1rem; font-size: 0.9rem; }
+
+    .adm-card {
+      max-width: 460px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      background: rgba(255, 253, 248, 0.9);
+      padding: 2.5rem 2rem; border-radius: var(--radius); box-shadow: var(--shadow-soft);
+    }
+    .adm-error { color: var(--rust); font-weight: 600; margin: 0; }
+
+    .adm-stats { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2.5rem; }
+    .adm-stat {
+      background: rgba(255, 253, 248, 0.85); border-radius: var(--radius);
+      box-shadow: var(--shadow-soft); padding: 1.25rem 2rem; text-align: center; min-width: 140px;
+    }
+    .adm-stat__num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 600; color: var(--color-terracotta); line-height: 1; }
+    .adm-stat__label { color: var(--color-stone-light); margin-top: 0.35rem; }
+
+    .adm-panel {
+      background: rgba(255, 253, 248, 0.85); border-radius: var(--radius);
+      box-shadow: var(--shadow-soft); padding: 1.75rem; margin-bottom: 2rem;
+    }
+    .adm-panel__title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--color-stone); margin-bottom: 1rem; }
+
+    .adm-table { width: 100%; border-collapse: collapse; }
+    .adm-table th, .adm-table td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-cream-deep); vertical-align: top; }
+    .adm-table th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-stone-light); }
+    .adm-table td { color: var(--color-stone); }
+
+    .adm-yes { color: #3f7d4f; font-weight: 600; }
+    .adm-no { color: var(--color-stone-light); }
+
+    .adm-rolecat__hint { color: var(--color-stone-light); font-style: italic; margin: -0.5rem 0 1rem; }
+    .adm-role { padding: 0.9rem 0; border-bottom: 1px solid var(--color-cream-deep); }
+    .adm-role:last-child { border-bottom: 0; }
+    .adm-role__top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem; }
+    .adm-role__title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--color-stone); }
+    .adm-badge { font-size: 0.72rem; font-weight: 600; padding: 0.15rem 0.55rem; border-radius: 999px; }
+    .adm-badge--custom { color: #fff; background: var(--color-terracotta); }
+    .adm-badge--holder { color: var(--color-stone); background: var(--color-cream-deep); }
+    .adm-badge--free { color: var(--color-stone-light); background: transparent; border: 1px dashed var(--color-cream-deep); }
+    .adm-role__desc { color: var(--color-stone-light); line-height: 1.6; margin-top: 0.4rem; }
+    .adm-role__desc--empty { font-style: italic; opacity: 0.7; }
+    .adm-role__by { font-size: 0.85rem; color: var(--color-stone-light); margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div id="admin-app" v-cloak>
+    <div class="adm-bar" v-if="authed">
+      <span class="adm-bar__who">💍 Správa — pre mladomanželov</span>
+      <button class="btn btn--ghost btn--sm" @click="logout">Odhlásiť</button>
+    </div>
+
+    <!-- TOKEN GATE -->
+    <section class="section section--cream" v-if="!authed">
+      <div class="container container--narrow">
+        <div class="section__heading">
+          <span class="section__eyebrow">Len pre mladomanželov</span>
+          <h1 class="section__title">Správa</h1>
+          <div class="ornament"></div>
+          <p class="section__lead">Zadaj admin token (X-Admin-Token) pre prehľad zasvätených a rolí.</p>
+        </div>
+        <form class="adm-card" @submit.prevent="submitToken">
+          <label class="form-field">
+            <span class="form-label">Admin token</span>
+            <input v-model="tokenInput" type="password" autocomplete="off" spellcheck="false" required />
+          </label>
+          <p class="adm-error" v-if="error">{{ error }}</p>
+          <button type="submit" class="btn btn--primary btn--lg" :disabled="loading">
+            {{ loading ? 'Načítavam…' : 'Vstúpiť' }}
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="section section--cream" v-else>
+      <div class="container">
+        <p class="adm-error" v-if="error">{{ error }}</p>
+
+        <div class="adm-stats">
+          <div class="adm-stat">
+            <div class="adm-stat__num">{{ members.length }}</div>
+            <div class="adm-stat__label">zasvätení</div>
+          </div>
+          <div class="adm-stat">
+            <div class="adm-stat__num">{{ teamCount }}</div>
+            <div class="adm-stat__label">v tíme</div>
+          </div>
+          <div class="adm-stat">
+            <div class="adm-stat__num">{{ takenCount }}</div>
+            <div class="adm-stat__label">obsadených rolí</div>
+          </div>
+        </div>
+
+        <!-- ROLES -->
+        <div class="adm-panel">
+          <h2 class="adm-panel__title">Role</h2>
+          <div v-for="(cat, key) in categories" :key="key" style="margin-bottom: 1.5rem;">
+            <h3 class="adm-panel__title" style="font-size: 1.25rem;">{{ cat.title }}</h3>
+            <p class="adm-rolecat__hint" v-if="cat.hint">{{ cat.hint }}</p>
+            <div v-if="!rolesByCategory(key).length" class="adm-role__desc adm-role__desc--empty">Žiadne role.</div>
+            <div v-for="role in rolesByCategory(key)" :key="role.RowKey" class="adm-role">
+              <div class="adm-role__top">
+                <span class="adm-role__title">{{ role.Title }}</span>
+                <span v-if="role.IsCustom" class="adm-badge adm-badge--custom">vlastná</span>
+                <span v-if="role.HolderName" class="adm-badge adm-badge--holder">🔑 {{ role.HolderName }}</span>
+                <span v-else class="adm-badge adm-badge--free">voľné</span>
+              </div>
+              <p v-if="role.Description" class="adm-role__desc">{{ role.Description }}</p>
+              <p v-else class="adm-role__desc adm-role__desc--empty">Bez popisu.</p>
+              <p v-if="role.IsCustom" class="adm-role__by">
+                vymyslel(a): {{ memberName[role.CreatedByMemberId] || 'neznámy' }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MEMBERS -->
+        <div class="adm-panel">
+          <h2 class="adm-panel__title">Zasvätení</h2>
+          <table class="adm-table">
+            <thead>
+              <tr><th>Meno</th><th>V tíme</th><th>Poznámka</th><th>Vytvorený</th><th>Pridal(a) sa</th></tr>
+            </thead>
+            <tbody>
+              <tr v-for="m in members" :key="m.RowKey">
+                <td>{{ m.Name }}</td>
+                <td><span :class="m.JoinedTeam ? 'adm-yes' : 'adm-no'">{{ m.JoinedTeam ? 'áno' : '—' }}</span></td>
+                <td>{{ m.Note || '—' }}</td>
+                <td>{{ fmtDate(m.CreatedAt) }}</td>
+                <td>{{ fmtDate(m.JoinedAt) }}</td>
+              </tr>
+              <tr v-if="!members.length"><td colspan="5" class="adm-no">Zatiaľ žiadni zasvätení.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
