@@ -20,3 +20,7 @@ yarn-error.log
 # Lokálne osobné súbory / draftov
 *.local
 private/
+
+# Neanonymizované originály fotiek (obsahujú EXIF/GPS) — do repa idú len
+# optimalizované .webp v assets/photos/. Originály držíme len lokálne.
+photos_raw/
