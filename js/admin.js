@@ -6,7 +6,7 @@
    localStorage. Not linked from anywhere public.
    ================================================================= */
 
-const { createApp, ref, computed, onMounted } = Vue;
+const { createApp, ref, reactive, computed, onMounted } = Vue;
 
 const TOKEN_KEY = 'weddingAdminToken';
 
