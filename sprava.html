@@ -66,8 +66,11 @@
     .adm-role__title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--color-stone); }
     .adm-badge { font-size: 0.72rem; font-weight: 600; padding: 0.15rem 0.55rem; border-radius: 999px; }
     .adm-badge--custom { color: #fff; background: var(--color-terracotta); }
+    .adm-badge--admin { color: #fff; background: #6a7d5f; }
+    .adm-badge--seed { color: var(--color-stone-light); background: transparent; border: 1px solid var(--color-cream-deep); }
     .adm-badge--holder { color: var(--color-stone); background: var(--color-cream-deep); }
     .adm-badge--free { color: var(--color-stone-light); background: transparent; border: 1px dashed var(--color-cream-deep); }
+    .adm-legend { color: var(--color-stone-light); font-size: 0.85rem; margin: 0 0 1.25rem; line-height: 1.9; }
     .adm-role__desc { color: var(--color-stone-light); line-height: 1.6; margin-top: 0.4rem; }
     .adm-role__desc--empty { font-style: italic; opacity: 0.7; }
     .adm-role__by { font-size: 0.85rem; color: var(--color-stone-light); margin-top: 0.25rem; }
@@ -143,6 +146,11 @@
             <h2 class="adm-panel__title" style="margin:0;">Role</h2>
             <button class="btn btn--primary btn--sm" v-if="editingId !== '__new__'" @click="startCreate()">➕ Pridať rolu</button>
           </div>
+          <p class="adm-legend">
+            <span class="adm-badge adm-badge--seed">zo zoznamu</span> = z insiders.json, seed ich prepíše &nbsp;·&nbsp;
+            <span class="adm-badge adm-badge--admin">pridaná ručne</span> a
+            <span class="adm-badge adm-badge--custom">vlastná (hosť)</span> = seed sa ich nedotkne.
+          </p>
 
           <!-- create form -->
           <div v-if="editingId === '__new__'" class="adm-editform">
@@ -203,7 +211,9 @@
               <template v-else>
                 <div class="adm-role__top">
                   <span class="adm-role__title">{{ role.Title }}</span>
-                  <span v-if="role.IsCustom" class="adm-badge adm-badge--custom">vlastná</span>
+                  <span v-if="!role.IsCustom" class="adm-badge adm-badge--seed" title="Definovaná v insiders.json — pri seedovaní sa prepíše (držiteľ ostáva).">zo zoznamu</span>
+                  <span v-else-if="!role.CreatedByMemberId" class="adm-badge adm-badge--admin" title="Pridaná ručne cez správu — seed sa jej nedotkne.">pridaná ručne</span>
+                  <span v-else class="adm-badge adm-badge--custom" title="Vymyslel ju zasvätený hosť — seed sa jej nedotkne.">vlastná (hosť)</span>
                   <span v-if="role.HolderName" class="adm-badge adm-badge--holder">🔑 {{ role.HolderName }}</span>
                   <span v-else class="adm-badge adm-badge--free">voľné</span>
                   <span class="adm-role__actions">
