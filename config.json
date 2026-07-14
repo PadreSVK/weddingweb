@@ -32,19 +32,66 @@
     "intro": "Náš spoločný príbeh sa píše už roky. Tu sú niektoré kapitoly...",
     "chapters": [
       {
-        "title": "Ako sme sa stretli",
-        "text": "Doplňte váš príbeh - kde a kedy ste sa stretli, čo vás na sebe očarilo.",
-        "image": "assets/photos/story-1.jpg"
+        "title": "Naše prvé spoločné chvíle",
+        "text": "Kapre, čaj, € kafe, hrnem brnem, mírak, Bojnické slávnosti, chrústy a kopa srandy.",
+        "folder": "nase-prve-spolocne-chvile",
+        "images": [
+          "assets/photos/nase-prve-spolocne-chvile/01.webp",
+          "assets/photos/nase-prve-spolocne-chvile/02.webp",
+          "assets/photos/nase-prve-spolocne-chvile/03.webp",
+          "assets/photos/nase-prve-spolocne-chvile/04.webp",
+          "assets/photos/nase-prve-spolocne-chvile/05.webp",
+          "assets/photos/nase-prve-spolocne-chvile/06.webp",
+          "assets/photos/nase-prve-spolocne-chvile/07.webp"
+        ]
+      },
+      {
+        "title": "Zásnuby v holandskej vysokohorskej oblasti",
+        "text": "Plán A ani plán B nevyšiel, našťastie Patrikov plán C vyšiel.",
+        "folder": "zasnuby",
+        "images": [
+          "assets/photos/zasnuby/01.webp"
+        ]
       },
       {
         "title": "Naše cesty",
         "text": "Spolu milujeme cestovanie - každé miesto, ktoré spolu navštívime, je ďalšia spomienka, ktorú si nesieme.",
-        "image": "assets/photos/story-2.jpg"
+        "folder": "nase-cesty",
+        "images": [
+          "assets/photos/nase-cesty/01.webp",
+          "assets/photos/nase-cesty/02.webp",
+          "assets/photos/nase-cesty/03.webp",
+          "assets/photos/nase-cesty/04.webp",
+          "assets/photos/nase-cesty/05.webp",
+          "assets/photos/nase-cesty/06.webp",
+          "assets/photos/nase-cesty/07.webp",
+          "assets/photos/nase-cesty/08.webp",
+          "assets/photos/nase-cesty/09.webp",
+          "assets/photos/nase-cesty/10.webp",
+          "assets/photos/nase-cesty/11.webp",
+          "assets/photos/nase-cesty/12.webp",
+          "assets/photos/nase-cesty/13.webp",
+          "assets/photos/nase-cesty/14.webp",
+          "assets/photos/nase-cesty/15.webp",
+          "assets/photos/nase-cesty/16.webp",
+          "assets/photos/nase-cesty/17.webp",
+          "assets/photos/nase-cesty/18.webp",
+          "assets/photos/nase-cesty/19.webp",
+          "assets/photos/nase-cesty/20.webp",
+          "assets/photos/nase-cesty/21.webp",
+          "assets/photos/nase-cesty/22.webp",
+          "assets/photos/nase-cesty/23.webp",
+          "assets/photos/nase-cesty/24.webp"
+        ]
       },
       {
         "title": "Merlin sa pridal",
         "text": "Náš štvornohý parťák Merlin nám rozžiaril život. Spolu sme rodina.",
-        "image": "assets/photos/merlin.jpg"
+        "folder": "merlin",
+        "images": [
+          "assets/photos/merlin/01.webp",
+          "assets/photos/merlin/02.webp"
+        ]
       }
     ]
   },
@@ -65,12 +112,30 @@
       "title": "Spoločný autobus",
       "description": "Autobus pôjde po trase cez nasledujúce zastávky. Presné časy odchodu doplníme v auguste.",
       "stops": [
-        { "name": "Dubnica nad Váhom", "time": "—" },
-        { "name": "Bolešov", "time": "—" },
-        { "name": "Kľúčové", "time": "—" },
-        { "name": "Pruské", "time": "—" },
-        { "name": "Košeca", "time": "—" },
-        { "name": "Klobušice", "time": "—" }
+        {
+          "name": "Dubnica nad Váhom",
+          "time": "—"
+        },
+        {
+          "name": "Bolešov",
+          "time": "—"
+        },
+        {
+          "name": "Kľúčové",
+          "time": "—"
+        },
+        {
+          "name": "Pruské",
+          "time": "—"
+        },
+        {
+          "name": "Košeca",
+          "time": "—"
+        },
+        {
+          "name": "Klobušice",
+          "time": "—"
+        }
       ],
       "returnNote": "Odvoz domov: cesta späť po skončení veselice bude zabezpečená privátnym taxíkom — postaráme sa, aby ste sa pohodlne dostali domov."
     },

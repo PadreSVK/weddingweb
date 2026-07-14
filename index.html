@@ -51,19 +51,66 @@
     "intro": "Náš spoločný príbeh sa píše už roky. Tu sú niektoré kapitoly...",
     "chapters": [
       {
-        "title": "Ako sme sa stretli",
-        "text": "Doplňte váš príbeh - kde a kedy ste sa stretli, čo vás na sebe očarilo.",
-        "image": "assets/photos/story-1.jpg"
+        "title": "Naše prvé spoločné chvíle",
+        "text": "Kapre, čaj, € kafe, hrnem brnem, mírak, Bojnické slávnosti, chrústy a kopa srandy.",
+        "folder": "nase-prve-spolocne-chvile",
+        "images": [
+          "assets/photos/nase-prve-spolocne-chvile/01.webp",
+          "assets/photos/nase-prve-spolocne-chvile/02.webp",
+          "assets/photos/nase-prve-spolocne-chvile/03.webp",
+          "assets/photos/nase-prve-spolocne-chvile/04.webp",
+          "assets/photos/nase-prve-spolocne-chvile/05.webp",
+          "assets/photos/nase-prve-spolocne-chvile/06.webp",
+          "assets/photos/nase-prve-spolocne-chvile/07.webp"
+        ]
+      },
+      {
+        "title": "Zásnuby v holandskej vysokohorskej oblasti",
+        "text": "Plán A ani plán B nevyšiel, našťastie Patrikov plán C vyšiel.",
+        "folder": "zasnuby",
+        "images": [
+          "assets/photos/zasnuby/01.webp"
+        ]
       },
       {
         "title": "Naše cesty",
         "text": "Spolu milujeme cestovanie - každé miesto, ktoré spolu navštívime, je ďalšia spomienka, ktorú si nesieme.",
-        "image": "assets/photos/story-2.jpg"
+        "folder": "nase-cesty",
+        "images": [
+          "assets/photos/nase-cesty/01.webp",
+          "assets/photos/nase-cesty/02.webp",
+          "assets/photos/nase-cesty/03.webp",
+          "assets/photos/nase-cesty/04.webp",
+          "assets/photos/nase-cesty/05.webp",
+          "assets/photos/nase-cesty/06.webp",
+          "assets/photos/nase-cesty/07.webp",
+          "assets/photos/nase-cesty/08.webp",
+          "assets/photos/nase-cesty/09.webp",
+          "assets/photos/nase-cesty/10.webp",
+          "assets/photos/nase-cesty/11.webp",
+          "assets/photos/nase-cesty/12.webp",
+          "assets/photos/nase-cesty/13.webp",
+          "assets/photos/nase-cesty/14.webp",
+          "assets/photos/nase-cesty/15.webp",
+          "assets/photos/nase-cesty/16.webp",
+          "assets/photos/nase-cesty/17.webp",
+          "assets/photos/nase-cesty/18.webp",
+          "assets/photos/nase-cesty/19.webp",
+          "assets/photos/nase-cesty/20.webp",
+          "assets/photos/nase-cesty/21.webp",
+          "assets/photos/nase-cesty/22.webp",
+          "assets/photos/nase-cesty/23.webp",
+          "assets/photos/nase-cesty/24.webp"
+        ]
       },
       {
         "title": "Merlin sa pridal",
         "text": "Náš štvornohý parťák Merlin nám rozžiaril život. Spolu sme rodina.",
-        "image": "assets/photos/merlin.jpg"
+        "folder": "merlin",
+        "images": [
+          "assets/photos/merlin/01.webp",
+          "assets/photos/merlin/02.webp"
+        ]
       }
     ]
   },
@@ -339,12 +386,30 @@
         <div class="story">
           <div v-for="(chapter, idx) in config.story.chapters" :key="idx" class="story__chapter" :class="{ 'story__chapter--reverse': idx % 2 === 1 }">
             <div class="story__img-wrap">
-              <div class="story__img" :style="{ backgroundImage: 'url(' + chapter.image + ')' }">
+              <div class="story__img">
                 <span class="story__img-placeholder">{{ getChapterEmoji(idx) }}</span>
+                <div
+                  v-for="(img, i) in chapterImages(chapter)"
+                  :key="i"
+                  class="story__img-layer"
+                  :class="{ 'is-active': i === activePhoto(chapter, idx) }"
+                  :style="{ backgroundImage: 'url(' + img + ')' }"
+                ></div>
+                <span v-if="chapterImages(chapter).length > 1" class="story__dots">
+                  <button
+                    v-for="(img, i) in chapterImages(chapter)"
+                    :key="i"
+                    type="button"
+                    class="story__dot"
+                    :class="{ 'is-active': i === activePhoto(chapter, idx) }"
+                    :aria-label="'Zobraziť fotku ' + (i + 1)"
+                    :aria-current="i === activePhoto(chapter, idx) ? 'true' : null"
+                    @click="selectPhoto(idx, i)"
+                  ></button>
+                </span>
               </div>
             </div>
             <div class="story__text-wrap">
-              <span class="story__chapter-num">0{{ idx + 1 }}</span>
               <h3 class="story__title">{{ chapter.title }}</h3>
               <p class="story__text">{{ chapter.text }}</p>
             </div>

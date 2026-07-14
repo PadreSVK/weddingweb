@@ -67,28 +67,28 @@
         "title": "Oddávajúci",
         "category": "fixed",
         "holder": "",
-        "description": "Vymysli ten najlepší oddávajúci prejav — vtipný, zahŕňajúci skutočné príhody s nami. Nech je z obradu zážitok."
+        "description": "Vymysli ten najlepší oddávajúci prejav - vtipný, zahŕňajúci skutočné príhody s nami. Pokojne pozisťuj vhodné zážitky aj od ostatných hostí. Veríme, že úroveň pekného, trápneho a vtipného bude dokonale vyvážená ;) Ďakujeme <3"
       },
       {
         "id": "svedok",
         "title": "Svedok",
         "category": "fixed",
         "holder": "",
-        "description": "Popis asi nie je potrebný. Buď tam pre nás, pomôž s čím sa dá, a ak vidíš niečo nedoplnené, prilož ruku k dielu."
+        "description": "Popis asi nie je potrebný. Buď tam pre nás, pomôž s čím sa dá, ak vidíš nedoplnený bar, upozorni obsluhu alebo ho doplň sám, ak vidíš moc koláčov, postaraj sa, aby ich osychalo menej. Ak vidíš prichádzajúci trapas, postaraj sa, nech je z toho vtipná spomienka. Ak máš nápad, čo by mohlo svadbu obzvláštniť či rozveseliť, neváhaj a šup do toho! Dali sme ti najavo, že v teba máme plnú dôveru a tak si nemusíš zakaždým pýtať požehnanie. ;) Ďakujeme! <3"
       },
       {
         "id": "starejsi",
         "title": "Starejší",
         "category": "fixed",
         "holder": "",
-        "description": "Ulievaj, vítaj, ulievaj, vtipkuj, ulievaj, postaraj sa, nech sa hostia nenudia a nech nič nechýba."
+        "description": "Ulievaj, vítaj, ulievaj, vtipkuj, ulievaj, postaraj sa, nech sa hostia nenudia a nech nie sú príliš zmätení. Daj im najavo, že čokoľvek budú potrebovať, môžu sa na teba obrátiť. ;) Ďakujeme <3"
       },
       {
         "id": "vencic",
         "title": "Venčič",
         "category": "mandatory",
         "holder": "",
-        "description": ""
+        "description": "Postaraj sa o Merlina, nášho štvornohého svedka — venči, nakŕm, upokoj a maj ho pod dohľadom, nech si deň užije aj on (a nezmizne za najbližším syrom)."
       },
       {
         "id": "moderator",
@@ -123,14 +123,21 @@
         "title": "Vylepšovák",
         "category": "optional",
         "holder": "",
-        "description": "Buď na čo najviac fotkách — pokojne v úzadí, pokojne v popredí, akúkoľvek situáciu vieš vylepšiť."
+        "description": "Buď na čo najviac fotkách - pokojne v úzadí, pokojne v popredí, akúkoľvek situáciu, ktorú uznáš za vhodnú, vylepši svojou prítomnosťou či svojou poznámkou."
       },
       {
         "id": "porucnik",
         "title": "Poručník",
         "category": "optional",
         "holder": "",
-        "description": "Doslova. Buď každému vždy po ruke — svadobčanom, svedkom, zvieratám, nám. Poručník vždy vie, čo treba."
+        "description": "Doslova. Buď každému vždy po ruke. Svadobčanom, svedkom, zvieratám, nám. Pomôž s čím sa dá, ak vidíš nedoplnený bar, upozorni obsluhu alebo ho doplň sám, ak vidíš moc koláčov, postaraj sa, aby ich osychalo menej. Ak vidíš prichádzajúci trapas, postaraj sa, nech je z toho vtipná spomienka. Ďakujeme <3"
+      },
+      {
+        "id": "hlavny-ochutnavac",
+        "title": "Hlavný ochutnávač",
+        "category": "optional",
+        "holder": "",
+        "description": "Otestuj torty, koláče a prípitky skôr než ostatní - čisto z bezpečnostných dôvodov, samozrejme. Náročná úloha, ale niekto ju spraviť musí. (Príklad vymyslenej roly - pokojne zmaž alebo nahraď vlastnou.)"
       }
     ]
   }

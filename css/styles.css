@@ -646,13 +646,12 @@ body {
 .story__img-wrap { padding: 1rem; }
 
 .story__img {
-  aspect-ratio: 4/5;
+  aspect-ratio: 4/3;
   background-color: var(--color-cream);
-  background-size: cover;
-  background-position: center;
   border-radius: var(--radius);
   box-shadow: var(--shadow-strong);
   position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,11 +662,74 @@ body {
   opacity: 0.3;
 }
 
-.story__chapter-num {
-  font-family: var(--font-script);
-  font-size: 4rem;
-  color: var(--color-terracotta);
-  line-height: 1;
+/* Crossfading photo layers — only the active one is visible. */
+.story__img-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.story__img-layer.is-active { opacity: 1; }
+
+/* Little dots showing how many photos this chapter rotates through. */
+.story__dots {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.05rem;
+  max-width: calc(100% - 1.5rem);
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  z-index: 2;
+}
+
+/* Button = generous hit area; the visible dot is drawn with ::before. */
+.story__dot {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story__dot::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: background 0.4s ease, transform 0.4s ease;
+}
+
+.story__dot:hover::before {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.story__dot.is-active::before {
+  background: #fff;
+  transform: scale(1.35);
+}
+
+.story__dot:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+  border-radius: 50%;
 }
 
 .story__title {

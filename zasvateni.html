@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pre zasvätених" />
+  <meta name="description" content="Pre zasvätených" />
   <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
-  <title>Pre zasvätених</title>
+  <title>Pre zasvätených</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -124,8 +124,75 @@
       color: var(--color-stone-light);
     }
 
+    /* roles */
+    .ins-rolecat { margin-bottom: 2.5rem; }
+    .ins-rolecat__head { margin-bottom: 1.25rem; }
+    .ins-rolecat__hint {
+      color: var(--color-stone-light);
+      font-style: italic;
+      margin-top: 0.15rem;
+    }
+    .ins-roles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .ins-role {
+      background: rgba(255, 253, 248, 0.85);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .ins-role__top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+    .ins-role__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-stone);
+    }
+    .ins-role__holder {
+      flex: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-terracotta);
+      background: var(--color-cream-deep);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    .ins-role__desc {
+      color: var(--color-stone-light);
+      line-height: 1.6;
+    }
+    .ins-role__desc--empty { font-style: italic; opacity: 0.75; }
+    .ins-role--mine {
+      outline: 2px solid var(--color-terracotta);
+      outline-offset: 0;
+    }
+    .ins-role__holder--me {
+      color: #fff;
+      background: var(--color-terracotta);
+    }
+    .ins-role__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .ins-createrole {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .ins-createrole .ins-card { text-align: left; max-width: 520px; }
+
     @media (max-width: 640px) {
       .ins-cols { grid-template-columns: 1fr; }
+      .ins-roles { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -217,10 +284,95 @@
           </div>
         </section>
 
-        <!-- Ideas + Roles arrive in later phases -->
-        <section class="section section--sage">
+        <!-- ROLES -->
+        <section class="section section--sage" id="role" v-if="cfg.roles">
           <div class="container container--narrow">
-            <p class="ins-soon">Čoskoro tu pribudnú <strong>nápady</strong> a <strong>boj o vysnenú rolu</strong>. ✨</p>
+            <div class="section__heading">
+              <span class="section__eyebrow">{{ cfg.roles.eyebrow }}</span>
+              <h1 class="section__title">{{ cfg.roles.title }}</h1>
+              <div class="ornament"></div>
+              <p class="section__lead">{{ cfg.roles.intro }}</p>
+            </div>
+
+            <p class="ins-error" v-if="rolesError">{{ rolesError }}</p>
+
+            <div v-for="(cat, key) in cfg.roles.categories" :key="key" class="ins-rolecat">
+              <div class="ins-rolecat__head">
+                <h2 class="ins-panel__title">{{ cat.title }}</h2>
+                <p class="ins-rolecat__hint">{{ cat.hint }}</p>
+              </div>
+              <div class="ins-roles">
+                <div
+                  v-for="role in rolesByCategory(key)"
+                  :key="role.id"
+                  class="ins-role"
+                  :class="{ 'ins-role--mine': role.mine }"
+                >
+                  <div class="ins-role__top">
+                    <h3 class="ins-role__title">{{ role.title }}</h3>
+                    <span v-if="role.mine" class="ins-role__holder ins-role__holder--me">Máš ju ty</span>
+                    <span v-else-if="role.holderName" class="ins-role__holder">{{ role.holderName }}</span>
+                  </div>
+                  <p v-if="role.description" class="ins-role__desc">{{ role.description }}</p>
+                  <p v-else class="ins-role__desc ins-role__desc--empty">Bez popisu.</p>
+
+                  <div class="ins-role__actions" v-if="role.canClaim || role.canTake || role.canRelease">
+                    <button
+                      v-if="role.canClaim"
+                      class="btn btn--primary btn--sm"
+                      :disabled="rolesBusy === role.id"
+                      @click="claimRole(role)"
+                    >{{ rolesBusy === role.id ? '…' : cfg.roles.claimLabel }}</button>
+                    <button
+                      v-if="role.canTake"
+                      class="btn btn--primary btn--sm"
+                      :disabled="rolesBusy === role.id"
+                      @click="takeRole(role)"
+                    >{{ rolesBusy === role.id ? '…' : cfg.roles.takeLabel }}</button>
+                    <button
+                      v-if="role.canRelease"
+                      class="btn btn--ghost btn--sm"
+                      :disabled="rolesBusy === role.id"
+                      @click="releaseRole(role)"
+                    >{{ rolesBusy === role.id ? '…' : cfg.roles.releaseLabel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- invent your own optional role -->
+            <div class="ins-createrole">
+              <button v-if="!create.open" class="btn btn--ghost" @click="create.open = true">
+                ➕ {{ cfg.roles.createLabel }}
+              </button>
+              <form v-else class="ins-card" @submit.prevent="createRole">
+                <h3 class="ins-panel__title">{{ cfg.roles.createLabel }}</h3>
+                <label class="form-field">
+                  <span class="form-label">{{ cfg.roles.createTitleLabel }}</span>
+                  <input v-model="create.title" type="text" required maxlength="60" />
+                </label>
+                <label class="form-field">
+                  <span class="form-label">{{ cfg.roles.createDescLabel }}</span>
+                  <textarea v-model="create.description" rows="3" maxlength="500"></textarea>
+                </label>
+                <p class="ins-error" v-if="create.error">{{ create.error }}</p>
+                <div class="ins-role__actions">
+                  <button type="submit" class="btn btn--primary" :disabled="create.busy">
+                    {{ create.busy ? 'Vytváram…' : 'Vytvoriť rolu' }}
+                  </button>
+                  <button type="button" class="btn btn--ghost" :disabled="create.busy" @click="create.open = false">
+                    Zrušiť
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ideas arrive in a later phase -->
+        <section class="section section--cream">
+          <div class="container container--narrow">
+            <p class="ins-soon">Čoskoro tu pribudnú aj <strong>nápady</strong>. ✨</p>
           </div>
         </section>
       </template>

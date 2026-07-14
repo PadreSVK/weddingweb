@@ -44,6 +44,12 @@ createApp({
     });
 
     // Merlin easter egg
+    // Story photo rotation — per-chapter active index, advanced on a timer.
+    // Chapters start offset by their index so they don't all flip in unison.
+    // Clicking a dot jumps to that photo and rotation continues from there.
+    const photoIdx = reactive({});
+    const PHOTO_INTERVAL = 4500;
+
     const merlinFound = ref([]);
     const merlinNotification = ref(null);
     const merlinFunFacts = [
@@ -105,13 +111,20 @@ createApp({
     // COUNTDOWN + SCROLL
     // ------------------------------------------------------------
     let timer;
+    let photoTimer;
+    function startPhotoTimer() {
+      clearInterval(photoTimer);
+      photoTimer = setInterval(advancePhotos, PHOTO_INTERVAL);
+    }
     onMounted(() => {
       timer = setInterval(() => { now.value = Date.now(); }, 1000);
+      startPhotoTimer();
       window.addEventListener('scroll', handleScroll, { passive: true });
       handleScroll();
     });
     onUnmounted(() => {
       clearInterval(timer);
+      clearInterval(photoTimer);
       window.removeEventListener('scroll', handleScroll);
     });
 
@@ -146,7 +159,44 @@ createApp({
     }
 
     function getChapterEmoji(idx) {
-      return ['💞', '✈️', '🐕', '🪄'][idx] || '📷';
+      return ['💞', '💍', '✈️', '🐕'][idx] || '📷';
+    }
+
+    // Normalise a chapter to a list of photos. Supports both the new
+    // `images` array and the legacy single `image` string.
+    function chapterImages(chapter) {
+      if (chapter && Array.isArray(chapter.images) && chapter.images.length) {
+        return chapter.images;
+      }
+      if (chapter && chapter.image) return [chapter.image];
+      return [];
+    }
+
+    // Which photo is currently showing for a given chapter. Before the first
+    // tick (or click) we fall back to a per-chapter staggered start.
+    function activePhoto(chapter, idx) {
+      const count = chapterImages(chapter).length;
+      if (count <= 1) return 0;
+      const cur = photoIdx[idx];
+      const val = cur == null ? idx : cur;
+      return ((val % count) + count) % count;
+    }
+
+    // Timer step: advance every multi-photo chapter to its next image.
+    function advancePhotos() {
+      const chapters = (config.value && config.value.story && config.value.story.chapters) || [];
+      chapters.forEach((chapter, idx) => {
+        const count = chapterImages(chapter).length;
+        if (count <= 1) return;
+        photoIdx[idx] = (activePhoto(chapter, idx) + 1) % count;
+      });
+    }
+
+    // Dot click: jump to a photo and keep rotating from there, giving the
+    // chosen photo a full interval before the next auto-advance.
+    function selectPhoto(idx, i) {
+      photoIdx[idx] = i;
+      startPhotoTimer();
     }
 
     // ------------------------------------------------------------
@@ -328,7 +378,7 @@ createApp({
       quiz, startQuiz, answerQuiz, quizOptionClass, nextQuestion, restartQuiz,
       merlinFound, merlinNotification, merlinFunFacts, findMerlin,
       merlinReward, claimMerlinReward, closeMerlinReward,
-      scrollTo, getChapterEmoji,
+      scrollTo, getChapterEmoji, chapterImages, activePhoto, selectPhoto,
     };
   },
 }).mount('#app');

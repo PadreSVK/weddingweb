@@ -1,0 +1,22 @@
+{
+  "name": "weddingweb",
+  "version": "1.0.0",
+  "description": "A static Vue 3 site for our wedding. No build step — everything runs from a CDN.\r Style: BOHO + Tatra/Vršatec nature + subtle HP references (\"Always\", the Lily & Severus tree).",
+  "main": "sync-config.js",
+  "scripts": {
+    "photos": "node scripts/optimize-photos.js && node sync-config.js",
+    "sync": "node sync-config.js",
+    "seed-roles": "node scripts/seed-roles.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gh-personal:PadreSVK/weddingweb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sharp": "^0.35.3"
+  }
+}
