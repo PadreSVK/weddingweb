@@ -173,8 +173,8 @@
   "gifts": {
     "eyebrow": "S láskou a vďakou",
     "title": "Dary",
-    "lead": "Najväčším darom pre nás bude Vaša prítomnosť.",
-    "text": "Ak by ste nás predsa len chceli obdarovať, poteší nás príspevok na začiatok novej spoločnej kapitoly, alebo niečo originálne, čo ste sami vytvorili, vymysleli či vybrali s úsmevom a myšlienkami na naše spoločné chvíle."
+    "lead": "Najviac nás, samozrejme, poteší tvoja prítomnosť. ☺",
+    "text": "Ak nás predsa len chceš obdarovať, môže to byť niečo, čo vystihuje naše spoločné chvíle, alebo niečo vtipné a osobné."
   },
   "easterEgg": {
     "quiz": {
@@ -518,6 +518,18 @@
           <p class="form-hint" v-if="!config.songs.spotifyUrl">
             <strong>Dev note:</strong> To embed the playlist, set <code>config.songs.spotifyUrl</code> and <code>config.songs.spotifyEmbedUrl</code>. The embed link comes from Spotify → Share → Embed playlist.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dary" class="section section--sage" v-if="config.gifts">
+      <div class="container container--narrow">
+        <div class="section__heading">
+          <span class="section__eyebrow">{{ config.gifts.eyebrow }}</span>
+          <h2 class="section__title">{{ config.gifts.title }}</h2>
+          <div class="ornament"></div>
+          <p class="section__lead">{{ config.gifts.lead }}</p>
+          <p class="section__lead">{{ config.gifts.text }}</p>
         </div>
       </div>
     </section>
