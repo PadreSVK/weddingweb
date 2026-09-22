@@ -105,38 +105,10 @@
     "email": ""
   },
   "transport": {
-    "intro": "Pre hostí plánujeme spoločný autobus z okolia Dubnice. Detaily ešte upresníme — sledujte túto sekciu alebo nám napíšte.",
-    "todo": "TODO pre Patrika & Petru: doplniť časy odchodu a presné zastávky.",
-    "bus": {
-      "enabled": true,
-      "title": "Spoločný autobus",
-      "description": "Autobus pôjde po trase cez nasledujúce zastávky. Presné časy odchodu doplníme v auguste.",
-      "stops": [
-        {
-          "name": "Dubnica nad Váhom",
-          "time": "—"
-        },
-        {
-          "name": "Bolešov",
-          "time": "—"
-        },
-        {
-          "name": "Kľúčové",
-          "time": "—"
-        },
-        {
-          "name": "Pruské",
-          "time": "—"
-        },
-        {
-          "name": "Košeca",
-          "time": "—"
-        },
-        {
-          "name": "Klobušice",
-          "time": "—"
-        }
-      ],
+    "intro": "Či prídeš vlastným autom, alebo budeš potrebovať odvoz — tu nájdeš všetko dôležité.",
+    "ride": {
+      "title": "Odvoz",
+      "description": "Ak máš záujem o odvoz na miesto, daj nám vedieť — napríklad v RSVP formulári v poli 'Odkaz pre nás'. Radi ho zorganizujeme.",
       "returnNote": "Odvoz domov: cesta späť po skončení veselice bude zabezpečená privátnym taxíkom — postaráme sa, aby ste sa pohodlne dostali domov."
     },
     "parking": {

@@ -822,59 +822,6 @@ body {
   line-height: 1.6;
 }
 
-.bus-stops {
-  list-style: none;
-  margin: 1rem 0;
-  padding: 0;
-  width: 100%;
-  position: relative;
-}
-
-.bus-stops::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 12px;
-  bottom: 12px;
-  width: 2px;
-  background: linear-gradient(180deg, var(--color-terracotta), var(--color-sage));
-  opacity: 0.45;
-}
-
-.bus-stop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0 0.5rem 1.5rem;
-  position: relative;
-  font-family: var(--font-display);
-}
-
-.bus-stop::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-terracotta);
-  border: 3px solid var(--color-cream);
-  box-shadow: 0 0 0 1px var(--color-terracotta);
-}
-
-.bus-stop__name {
-  font-size: 1.05rem;
-  color: var(--color-stone);
-}
-
-.bus-stop__time {
-  font-size: 0.9rem;
-  color: var(--color-stone-light);
-  font-style: italic;
-}
-
 .transport__note {
   font-size: 0.85rem;
   color: var(--color-stone-light);
